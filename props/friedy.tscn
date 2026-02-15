@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://cserpy8ca0bye"]
+
+[ext_resource type="PackedScene" uid="uid://2d6enjspi2m6" path="res://models/friedy2.glb" id="1_njei1"]
+[ext_resource type="AudioStream" uid="uid://uo0a7j1yjg40" path="res://audio/chase.wav" id="2_wvyrq"]
+[ext_resource type="AudioStream" uid="uid://c7m0mhtdya51y" path="res://audio/Rawr Sound Effect.wav" id="3_wvyrq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f8xk6"]
+size = Vector3(0.5, 1.95, 0.2)
+
+[node name="friedy" instance=ExtResource("1_njei1")]
+
+[node name="RigidBody3D" type="RigidBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1250001, -0.04999999)
+shape = SubResource("BoxShape3D_f8xk6")
+
+[node name="Chase" type="AudioStreamPlayer3D" parent="." index="2"]
+stream = ExtResource("2_wvyrq")
+attenuation_model = 3
+volume_db = 4.0
+max_db = 4.0
+autoplay = true
+max_distance = 10.0
+bus = &"chase"
+
+[node name="Sceam" type="AudioStreamPlayer3D" parent="." index="3"]
+stream = ExtResource("3_wvyrq")
+attenuation_model = 3
+volume_db = 4.0
+max_db = 4.0
+autoplay = true
+max_distance = 8.0
+panning_strength = 0.27
+bus = &"Scream"

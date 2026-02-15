@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://0aelju2gl8sf"]
+
+[ext_resource type="PackedScene" uid="uid://dvqmmhy706mth" path="res://models/box2.glb" id="1_ir7cw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ir7cw"]
+
+[node name="box2" type="Node3D"]
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+mass = 0.1
+gravity_scale = 0.1
+
+[node name="blockbench_export" parent="RigidBody3D" instance=ExtResource("1_ir7cw")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_ir7cw")

@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://df4qtp1a4ih48"]
+
+[ext_resource type="PackedScene" uid="uid://df6fsiskmk136" path="res://models/sniper.glb" id="1_h4qes"]
+
+[node name="sniper" instance=ExtResource("1_h4qes")]

@@ -1,0 +1,293 @@
+[gd_scene load_steps=25 format=3 uid="uid://tbopls8giqmt"]
+
+[ext_resource type="Script" uid="uid://b3j4ktmvtwqtw" path="res://props/fire.gd" id="1_4b102"]
+[ext_resource type="Texture2D" uid="uid://cgbxmicvoqrg7" path="res://textures/T_fire01.png" id="1_i6rrn"]
+[ext_resource type="Texture2D" uid="uid://bddwptoemyk8d" path="res://textures/T_VFX_Glow_1.PNG" id="2_4b102"]
+[ext_resource type="AudioStream" uid="uid://c3pf34ni46ht4" path="res://audio/fire_crackle.mp3" id="3_62l8j"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_alv52"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_texture = ExtResource("1_i6rrn")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_j1r8p"]
+_data = [Vector2(0, 0), 0.0, 6.1638584, 0, 0, Vector2(0.11013217, 0.8314607), 1.1252477, 1.1252477, 0, 0, Vector2(0.41409695, 1), 0.0, 0.0, 0, 0, Vector2(0.48898685, 1), -1.1052433, -1.1052433, 0, 0, Vector2(1, 0.011235952), -2.550563, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_imetb"]
+curve = SubResource("Curve_j1r8p")
+
+[sub_resource type="Gradient" id="Gradient_2wlgc"]
+offsets = PackedFloat32Array(0.014925373, 0.880597)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_sjy6i"]
+gradient = SubResource("Gradient_2wlgc")
+
+[sub_resource type="Curve" id="Curve_t1f65"]
+_data = [Vector2(0, 0.64044946), 0.0, 1.0202243, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_pd58x"]
+curve = SubResource("Curve_t1f65")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ibwtd"]
+lifetime_randomness = 0.09
+particle_flag_rotate_y = true
+emission_shape = 1
+emission_sphere_radius = 0.2
+angle_min = -179.99998
+angle_max = 180.00002
+direction = Vector3(0, 1, 0)
+spread = 15.0
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+radial_velocity_min = -2.2351742e-05
+radial_velocity_max = 0.49997765
+gravity = Vector3(0, 1, 0)
+scale_min = 0.9
+scale_max = 1.4
+scale_curve = SubResource("CurveTexture_pd58x")
+color = Color(1.9933101, 0.84338385, 0.17763709, 0.94509804)
+color_ramp = SubResource("GradientTexture1D_sjy6i")
+alpha_curve = SubResource("CurveTexture_imetb")
+
+[sub_resource type="QuadMesh" id="QuadMesh_nj0wl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_538fl"]
+render_priority = 1
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_texture = ExtResource("2_4b102")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_ootoa"]
+_data = [Vector2(0, 0.9662922), 0.0, 0.0, 0, 0, Vector2(0.0660793, 0.8651686), 4.554574, 4.554574, 0, 0, Vector2(0.10572688, 0), 0.0, 0.0, 0, 0, Vector2(0.18942733, 1), 0.0, 0.0, 0, 0, Vector2(0.19823791, 0.8988764), -0.13786817, -0.13786817, 0, 0, Vector2(0.3259912, 0.764045), -5.772321, -5.772321, 0, 0, Vector2(0.41409695, 0), 0.0, 0.0, 0, 0, Vector2(0.43612337, 0.94382024), 6.0821066, 6.0821066, 0, 0, Vector2(0.5638667, 0), 0.0, 0.0, 0, 0, Vector2(0.5638767, 0.9887641), 0.0, 0.0, 0, 0, Vector2(0.6828194, 0.8651686), -9.352058, -9.352058, 0, 0, Vector2(0.84140974, 0.9887641), 0.0, 0.0, 0, 0, Vector2(1, 0.9101124), 0.0, 0.0, 0, 0]
+point_count = 13
+
+[sub_resource type="CurveTexture" id="CurveTexture_dfiy2"]
+curve = SubResource("Curve_ootoa")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_a2cnw"]
+lifetime_randomness = 0.1
+emission_shape = 6
+emission_ring_axis = Vector3(0, 1, 0)
+emission_ring_height = 0.8
+emission_ring_radius = 0.6
+emission_ring_inner_radius = 0.4
+emission_ring_cone_angle = 90.0
+direction = Vector3(0, 1, 0)
+spread = 25.0
+initial_velocity_min = 0.5
+initial_velocity_max = 2.0
+gravity = Vector3(0, 1, 0)
+scale_min = 0.04
+scale_max = 0.089999996
+scale_curve = SubResource("CurveTexture_dfiy2")
+color = Color(1.9614621, 1.0096155, 0.3750512, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_y8p1g"]
+
+[sub_resource type="Animation" id="Animation_qm86m"]
+resource_name = "Init"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flickerlight:light_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.23333333, 0.6333333, 1, 1.3333334, 1.6666666, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [5.69, 2.393, 5.69, 2.393, 5.69, 9.0, 5.69]
+}
+
+[sub_resource type="Animation" id="Animation_dfiy2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flickerlight:light_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [5.69]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_poweg"]
+_data = {
+&"Init": SubResource("Animation_qm86m"),
+&"RESET": SubResource("Animation_dfiy2")
+}
+
+[sub_resource type="Animation" id="Animation_imetb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flickerlight:omni_range")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [5.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("crackle:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-6.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("flame:amount_ratio")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("sparks:amount_ratio")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_poweg"]
+resource_name = "intensity"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flickerlight:omni_range")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 2.817, 5.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("crackle:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-80.0, -23.0, -6.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("flame:amount_ratio")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.1, 1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("sparks:amount_ratio")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.1, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_en4yi"]
+_data = {
+&"RESET": SubResource("Animation_imetb"),
+&"intensity": SubResource("Animation_poweg")
+}
+
+[node name="Fire" type="Node3D"]
+script = ExtResource("1_4b102")
+
+[node name="flame" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_alv52")
+amount = 50
+amount_ratio = 0.0
+lifetime = 1.11
+process_material = SubResource("ParticleProcessMaterial_ibwtd")
+draw_pass_1 = SubResource("QuadMesh_nj0wl")
+
+[node name="sparks" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+material_override = SubResource("StandardMaterial3D_538fl")
+amount = 20
+amount_ratio = 0.0
+process_material = SubResource("ParticleProcessMaterial_a2cnw")
+draw_pass_1 = SubResource("QuadMesh_y8p1g")
+
+[node name="flickerlight" type="OmniLight3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.5, 0)
+light_color = Color(0.9411048, 0.34200296, 0.11746507, 1)
+light_energy = 5.69
+omni_range = 0.0
+
+[node name="flickeranim" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_poweg")
+}
+autoplay = "Init"
+
+[node name="crackle" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_62l8j")
+attenuation_model = 1
+volume_db = -80.0
+max_db = -2.656
+autoplay = true
+bus = &"ambiance"
+
+[node name="intensity" type="AnimationPlayer" parent="."]
+reset_on_save = false
+libraries = {
+&"": SubResource("AnimationLibrary_en4yi")
+}
