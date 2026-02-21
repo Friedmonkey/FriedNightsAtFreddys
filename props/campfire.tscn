@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://tbopls8giqmt" path="res://props/Fire.tscn" id="3_qm86m"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_qm86m"]
-radius = 0.75
+radius = 0.55
 
 [node name="campfire" type="Node3D"]
 script = ExtResource("1_poweg")

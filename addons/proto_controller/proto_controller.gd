@@ -5,6 +5,8 @@
 
 extends CharacterBody3D
 
+@export var footstep_sounds: Array[AudioStream] = []
+
 ## Can we move around?
 @export var can_move : bool = true
 ## Are we affected by gravity?
@@ -57,12 +59,16 @@ var freeflying : bool = false
 var stuck : bool = false
 var fire_level : int = 0
 
+var step_timer := 0.8
+var step_interval := 0.35
+
 signal on_player_died
 
 ## IMPORTANT REFERENCES
 @onready var head: Node3D = $Head
 @onready var collider: CollisionShape3D = $Collider
 
+@onready var footstep_player := $footstep
 @onready var screenTransition: AnimationPlayer = $Transition/Animator
 @onready var fire_effect := $Fire/flame
 @onready var burn_timer : Timer = $Fire/burn_timer
@@ -157,7 +163,6 @@ func _update_vignette():
 	# Apply to vignette (Godot expects 0.0–1.0)
 	vignette.self_modulate.a = alpha / 255.0
 
-
 func _on_burn_tick():
 	burn(1)
 
@@ -222,12 +227,37 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = 0
 		velocity.y = 0
-	
+		
 	# Use velocity to actually move
+	handle_floor(delta)
 	move_and_slide()
 	emit_signal("player_moved", global_position)
 
+func handle_floor(delta: float):
+	if is_on_floor():
+		# Check horizontal movement only (ignore Y velocity)
+		var horizontal_speed := Vector2(velocity.x, velocity.z).length()
+		
+		if horizontal_speed > 0.1:
+			step_timer -= delta
+			
+			if step_timer <= 0.0:
+				play_footstep_sound()
+				
+				# Optional: make footsteps scale with speed
+				var speed_ratio := horizontal_speed / base_speed
+				step_timer = step_interval / max(speed_ratio, 0.1)
+		else:
+			step_timer = 0.0
+	else:
+		step_timer = 0.0
 
+
+func play_footstep_sound():
+	var sound = footstep_sounds[randi() % footstep_sounds.size()]
+	footstep_player.stream = sound
+	footstep_player.play()
+	
 ## Rotate us to look around.
 ## Base of controller rotates around y (left/right). Head rotates around x (up/down).
 ## Modifies look_rotation based on rot_input, then resets basis and rotates by look_rotation.

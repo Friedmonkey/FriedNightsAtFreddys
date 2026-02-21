@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=3 uid="uid://cqadfv1pu51dn"]
+
+[ext_resource type="PackedScene" uid="uid://c8chner0rn0in" path="res://models/airplane/airplane.glb" id="1_kpn3p"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m4tau"]
+albedo_color = Color(0.18321949, 0.17020547, 0.16147557, 1)
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_o38jl"]
+size = Vector3(0.75, 0.25, 0.75)
+
+[node name="airplane" instance=ExtResource("1_kpn3p")]
+
+[node name="lights" type="Node" parent="body" index="9"]
+
+[node name="Lamp1" type="MeshInstance3D" parent="body/lights" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.7, -15)
+material_override = SubResource("StandardMaterial3D_m4tau")
+mesh = SubResource("BoxMesh_o38jl")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="body/lights/Lamp1" index="0"]
+
+[node name="Lamp2" type="MeshInstance3D" parent="body/lights" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.7, -10)
+material_override = SubResource("StandardMaterial3D_m4tau")
+mesh = SubResource("BoxMesh_o38jl")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="body/lights/Lamp2" index="0"]
+
+[node name="Lamp3" type="MeshInstance3D" parent="body/lights" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.7, -5)
+material_override = SubResource("StandardMaterial3D_m4tau")
+mesh = SubResource("BoxMesh_o38jl")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="body/lights/Lamp3" index="0"]
+
+[node name="Lamp4" type="MeshInstance3D" parent="body/lights" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.7, 0)
+material_override = SubResource("StandardMaterial3D_m4tau")
+mesh = SubResource("BoxMesh_o38jl")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="body/lights/Lamp4" index="0"]
+
+[node name="Lamp5" type="MeshInstance3D" parent="body/lights" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.7, 5)
+material_override = SubResource("StandardMaterial3D_m4tau")
+mesh = SubResource("BoxMesh_o38jl")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="body/lights/Lamp5" index="0"]
+
+[node name="Lamp6" type="MeshInstance3D" parent="body/lights" index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.7, 10)
+material_override = SubResource("StandardMaterial3D_m4tau")
+mesh = SubResource("BoxMesh_o38jl")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="body/lights/Lamp6" index="0"]
+
+[node name="Lamp7" type="MeshInstance3D" parent="body/lights" index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.7, 15)
+material_override = SubResource("StandardMaterial3D_m4tau")
+mesh = SubResource("BoxMesh_o38jl")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="body/lights/Lamp7" index="0"]

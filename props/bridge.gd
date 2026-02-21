@@ -8,6 +8,7 @@ extends Node3D
 const MAX_PLANKS := 13
 var planks: Array[MeshInstance3D] = []
 var plank_level := 0
+var bridge_built := false
 
 func _ready() -> void:
 	setup_planks()
@@ -16,6 +17,9 @@ func _ready() -> void:
 	wood_place.finished.connect(func (): wood_place.pitch_scale = 1)
 
 func build_bridge() -> void:
+	if bridge_built or smoke_effect.visible:
+		return
+	bridge_built = true
 	plankStack.set_level(0)
 	bridge_build.play()
 	smoke_effect.visible = true
@@ -39,6 +43,7 @@ func set_plank_level(new_level : int) -> void:
 	if (plank_level == 14):
 		build_bridge()
 	else:
+		bridge_built = false
 		plankStack.set_level(plank_level)
 		wood_place.play()
 		hide_planks()

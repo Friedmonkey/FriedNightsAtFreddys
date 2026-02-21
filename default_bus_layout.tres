@@ -1,4 +1,4 @@
-[gd_resource type="AudioBusLayout" load_steps=5 format=3 uid="uid://cxiwviuxd5ifs"]
+[gd_resource type="AudioBusLayout" load_steps=6 format=3 uid="uid://cxiwviuxd5ifs"]
 
 [sub_resource type="AudioEffectPhaser" id="AudioEffectPhaser_g28q7"]
 resource_name = "Phaser"
@@ -15,6 +15,9 @@ mode = 3
 resource_name = "Phaser"
 feedback = 0.2
 depth = 0.3
+
+[sub_resource type="AudioEffectLowPassFilter" id="AudioEffectLowPassFilter_j3pel"]
+resource_name = "LowPassFilter"
 
 [resource]
 bus/1/name = &"background"
@@ -49,3 +52,11 @@ bus/4/mute = false
 bus/4/bypass_fx = false
 bus/4/volume_db = 0.0
 bus/4/send = &"Master"
+bus/5/name = &"footsteps"
+bus/5/solo = false
+bus/5/mute = false
+bus/5/bypass_fx = false
+bus/5/volume_db = 0.0694828
+bus/5/send = &"Master"
+bus/5/effect/0/effect = SubResource("AudioEffectLowPassFilter_j3pel")
+bus/5/effect/0/enabled = true

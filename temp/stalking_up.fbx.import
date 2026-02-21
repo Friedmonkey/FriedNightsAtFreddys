@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://u5ymopt6x02e"
-path="res://.godot/imported/Stalking.fbx-d5c786c0127598e3480686ed4cea933f.scn"
+uid="uid://cr2h1xx0mpba7"
+path="res://.godot/imported/stalking_up.fbx-f40268153cad314b17261b066f068c6f.scn"
 
 [deps]
 
-source_file="res://temp/Stalking.fbx"
-dest_files=["res://.godot/imported/Stalking.fbx-d5c786c0127598e3480686ed4cea933f.scn"]
+source_file="res://temp/stalking_up.fbx"
+dest_files=["res://.godot/imported/stalking_up.fbx-f40268153cad314b17261b066f068c6f.scn"]
 
 [params]
 
@@ -41,9 +41,9 @@ _subresources={
 "animations": {
 "mixamo_com": {
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://temp/stalking.res",
+"save_to_file/fallback_path": "res://temp/stalking_up.res",
 "save_to_file/keep_custom_tracks": "",
-"save_to_file/path": "uid://btxnyxvxu12f6",
+"save_to_file/path": "uid://dyb5ko4mdxji2",
 "settings/loop_mode": 0,
 "slice_1/end_frame": 0,
 "slice_1/loop_mode": 0,

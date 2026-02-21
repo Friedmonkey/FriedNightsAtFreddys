@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bndswu8rf5idj"
+path="res://.godot/imported/Nuclear Alarm Siren.mp3-bc449097593647579c18e93c5cbbdf48.mp3str"
+
+[deps]
+
+source_file="res://audio/Nuclear Alarm Siren.mp3"
+dest_files=["res://.godot/imported/Nuclear Alarm Siren.mp3-bc449097593647579c18e93c5cbbdf48.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
