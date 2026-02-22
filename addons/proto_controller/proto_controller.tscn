@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bs72ogkvdd7d6"]
+[gd_scene load_steps=30 format=3 uid="uid://bs72ogkvdd7d6"]
 
 [ext_resource type="Script" uid="uid://dgtcu20sm3hmv" path="res://addons/proto_controller/proto_controller.gd" id="1_ucva2"]
 [ext_resource type="AudioStream" uid="uid://bj7dho7hnqc5o" path="res://audio/death_drown.mp3" id="2_5hfox"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://tbopls8giqmt" path="res://props/Fire.tscn" id="6_h60nn"]
 [ext_resource type="AudioStream" uid="uid://b38xmh23if3d4" path="res://audio/death_fire.mp3" id="6_x436g"]
 [ext_resource type="AudioStream" uid="uid://cvsnfu2dg3qmw" path="res://audio/burn.mp3" id="7_1tksx"]
+[ext_resource type="PackedScene" uid="uid://ejh2ihnhmx77" path="res://props/ShakeableCamera.tscn" id="7_3o3af"]
 [ext_resource type="Texture2D" uid="uid://dybogq655nbby" path="res://textures/fire.png" id="7_q1ipm"]
 [ext_resource type="AudioStream" uid="uid://dyp1ajj1dhlno" path="res://audio/hurt.mp3" id="8_ths8c"]
 [ext_resource type="Texture2D" uid="uid://root8pfywqu5" path="res://textures/vingette.PNG" id="11_q1ipm"]
@@ -397,10 +398,13 @@ shape = SubResource("CapsuleShape3D_iof21")
 [node name="Head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 
-[node name="Camera3D" type="Camera3D" parent="Head"]
-cull_mask = 983039
+[node name="ShakeableCamera" parent="Head" instance=ExtResource("7_3o3af")]
+max_x = 8.0
+max_y = 8.0
+max_z = 3.0
+noise_speed = 150.0
 
-[node name="SpotLight3D" type="SpotLight3D" parent="Head/Camera3D"]
+[node name="SpotLight3D" type="SpotLight3D" parent="Head/ShakeableCamera"]
 spot_range = 10.342
 spot_attenuation = 1.66
 spot_angle = 47.14
