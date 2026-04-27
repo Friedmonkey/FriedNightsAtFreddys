@@ -79,6 +79,7 @@ signal on_player_died
 
 func _ready() -> void:
 	check_input_mappings()
+	self.transform = respawn_location.transform
 	look_rotation.y = rotation.y
 	look_rotation.x = head.rotation.x
 	screenTransition.animation_finished.connect(_transition_animation_finished)

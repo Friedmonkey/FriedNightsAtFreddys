@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://bs72ogkvdd7d6"]
+[gd_scene format=3 uid="uid://bs72ogkvdd7d6"]
 
 [ext_resource type="Script" uid="uid://dgtcu20sm3hmv" path="res://addons/proto_controller/proto_controller.gd" id="1_ucva2"]
 [ext_resource type="AudioStream" uid="uid://bj7dho7hnqc5o" path="res://audio/death_drown.mp3" id="2_5hfox"]
@@ -380,48 +380,48 @@ _data = {
 &"fade_in": SubResource("Animation_0rk7u")
 }
 
-[node name="ProtoController" type="CharacterBody3D"]
+[node name="ProtoController" type="CharacterBody3D" unique_id=867843249]
 safe_margin = 0.01
 script = ExtResource("1_ucva2")
 footstep_sounds = Array[AudioStream]([ExtResource("2_f4vau"), ExtResource("3_3o3af"), ExtResource("4_ymooi"), ExtResource("5_jc6e2"), ExtResource("6_6s64k")])
 
-[node name="Mesh" type="MeshInstance3D" parent="."]
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=174089023]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 material_override = SubResource("StandardMaterial3D_iof21")
 cast_shadow = 0
 mesh = SubResource("CapsuleMesh_ucva2")
 
-[node name="Collider" type="CollisionShape3D" parent="."]
+[node name="Collider" type="CollisionShape3D" parent="." unique_id=1173271350]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 shape = SubResource("CapsuleShape3D_iof21")
 
-[node name="Head" type="Node3D" parent="."]
+[node name="Head" type="Node3D" parent="." unique_id=1403008645]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 
-[node name="ShakeableCamera" parent="Head" instance=ExtResource("7_3o3af")]
+[node name="ShakeableCamera" parent="Head" unique_id=1629756150 instance=ExtResource("7_3o3af")]
 max_x = 5.0
 max_y = 5.0
 max_z = 1.5
 noise_speed = 150.0
 
-[node name="SpotLight3D" type="SpotLight3D" parent="Head/ShakeableCamera"]
+[node name="SpotLight3D" type="SpotLight3D" parent="Head/ShakeableCamera" unique_id=1525535650]
 spot_range = 10.342
 spot_attenuation = 1.66
 spot_angle = 47.14
 spot_angle_attenuation = 2.549123
 
-[node name="MeshCollisionGrass" type="MeshInstance3D" parent="."]
+[node name="MeshCollisionGrass" type="MeshInstance3D" parent="." unique_id=2121052199]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.25)
 layers = 65536
 mesh = SubResource("SphereMesh_g2uji")
 
-[node name="Transition" type="Node" parent="."]
+[node name="Transition" type="Node" parent="." unique_id=1770654785]
 
-[node name="sound" type="AudioStreamPlayer" parent="Transition"]
+[node name="sound" type="AudioStreamPlayer" parent="Transition" unique_id=834495871]
 
-[node name="overlay" type="CanvasLayer" parent="Transition"]
+[node name="overlay" type="CanvasLayer" parent="Transition" unique_id=1735625012]
 
-[node name="TextureRect" type="TextureRect" parent="Transition/overlay"]
+[node name="TextureRect" type="TextureRect" parent="Transition/overlay" unique_id=1440795546]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -429,31 +429,29 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch_mode = 1
 
-[node name="Animator" type="AnimationPlayer" parent="Transition"]
-libraries = {
-&"": SubResource("AnimationLibrary_6dqce")
-}
+[node name="Animator" type="AnimationPlayer" parent="Transition" unique_id=1280919482]
+libraries/ = SubResource("AnimationLibrary_6dqce")
 
-[node name="Fire" type="Node3D" parent="."]
+[node name="Fire" type="Node3D" parent="." unique_id=1887837618]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.5)
 
-[node name="flame" parent="Fire" instance=ExtResource("6_h60nn")]
+[node name="flame" parent="Fire" unique_id=899692421 instance=ExtResource("6_h60nn")]
 
-[node name="burn_timer" type="Timer" parent="Fire"]
+[node name="burn_timer" type="Timer" parent="Fire" unique_id=1649622248]
 
-[node name="burn" type="AudioStreamPlayer" parent="Fire"]
+[node name="burn" type="AudioStreamPlayer" parent="Fire" unique_id=1989204994]
 stream = ExtResource("7_1tksx")
 volume_db = -3.0
 max_polyphony = 3
 
-[node name="hurt" type="AudioStreamPlayer" parent="."]
+[node name="hurt" type="AudioStreamPlayer" parent="." unique_id=736199004]
 stream = ExtResource("8_ths8c")
 volume_db = -5.0
 max_polyphony = 5
 
-[node name="hurt_overlay" type="CanvasLayer" parent="."]
+[node name="hurt_overlay" type="CanvasLayer" parent="." unique_id=1437500027]
 
-[node name="TextureRect" type="TextureRect" parent="hurt_overlay"]
+[node name="TextureRect" type="TextureRect" parent="hurt_overlay" unique_id=2139533241]
 modulate = Color(1, 0, 0, 1)
 self_modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
@@ -464,6 +462,6 @@ grow_vertical = 2
 texture = ExtResource("11_q1ipm")
 expand_mode = 1
 
-[node name="footstep" type="AudioStreamPlayer" parent="."]
+[node name="footstep" type="AudioStreamPlayer" parent="." unique_id=1496286376]
 volume_db = -20.0
 bus = &"footsteps"

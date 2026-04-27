@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://uhvmingtd5y7"]
+
+[ext_resource type="PackedScene" uid="uid://bhppnihgaay58" path="res://models/rock_compressed.glb" id="1_51shy"]
+[ext_resource type="Shader" uid="uid://dvw4f5nq7bqxn" path="res://shaders/snow.gdshader" id="2_7p02l"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_itgkc"]
+render_priority = 0
+shader = ExtResource("2_7p02l")
+shader_parameter/snow_level = 2.0
+shader_parameter/blend_sharpness = 0.3
+shader_parameter/base_color = Color(1, 1, 1, 1)
+shader_parameter/snow_color = Color(1, 1, 1, 1)
+shader_parameter/snow_tint = Color(0.9, 0.95, 1, 1)
+
+[node name="rockmesh" unique_id=756160716 instance=ExtResource("1_51shy")]
+
+[node name="mesh" parent="." index="0"]
+material_overlay = SubResource("ShaderMaterial_itgkc")
