@@ -32,12 +32,20 @@ Shortcuts/density_decrement=Object(Shortcut,"resource_local_to_scene":false,"res
 ],"script":null)
 
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="FriedNightsAtFreddys"
-run/main_scene="uid://xxkckvwbdnr4"
-config/features=PackedStringArray("4.5", "GL Compatibility")
+run/main_scene="uid://dsampoje3pduw"
+config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[audio]
+
+buses/default_bus_layout="uid://cxiwviuxd5ifs"
 
 [autoload]
 

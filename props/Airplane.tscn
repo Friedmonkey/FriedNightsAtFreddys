@@ -56,7 +56,7 @@ size = Vector3(7.5, 1.3000001, 41.05)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_egi13"]
 margin = 0.1
-height = 8.79082
+height = 11.436926
 radius = 4.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7fspx"]
@@ -212,7 +212,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7881393e-07, 5.4, 1.1249995
 shape = SubResource("BoxShape3D_xbwb8")
 
 [node name="nose" type="CollisionShape3D" parent="scaled/collision"]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1.9999996, -23.732126)
+transform = Transform3D(1, 0, 0, 0, -4.371138e-08, -1, 0, 1, -4.371138e-08, 0, 1.9999995, -24.37364)
 shape = SubResource("CylinderShape3D_egi13")
 
 [node name="doorway_front_left" type="CollisionShape3D" parent="scaled/collision"]
@@ -240,7 +240,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06363641, 4.0999994, 14.15
 shape = SubResource("BoxShape3D_bw3iw")
 
 [node name="tail" type="CollisionShape3D" parent="scaled/collision"]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1.9999996, 23.767874)
+transform = Transform3D(1, 0, 0, 0, -4.371138e-08, -1, 0, 1, -4.371138e-08, 0, 1.9999995, 24.44941)
 shape = SubResource("CylinderShape3D_egi13")
 
 [node name="left_front_wing" type="CollisionShape3D" parent="scaled/collision"]

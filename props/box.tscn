@@ -1,18 +1,30 @@
-[gd_scene load_steps=3 format=3 uid="uid://d1etm2mefo76x"]
+[gd_scene format=3 uid="uid://d1etm2mefo76x"]
 
 [ext_resource type="PackedScene" uid="uid://nkf1iuhtox0v" path="res://models/box.glb" id="1_gss50"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_gss50"]
+radius = 0.7
+height = 1.31
+radial_segments = 16
+rings = 8
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gss50"]
 size = Vector3(0.6, 0.6, 0.6)
 
-[node name="box" type="Node3D"]
+[node name="box" type="Node3D" unique_id=1688434578]
 
-[node name="RigidBody3D" type="RigidBody3D" parent="."]
+[node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=1831086173]
 mass = 0.1
 gravity_scale = 0.1
 
-[node name="blockbench_export" parent="RigidBody3D" instance=ExtResource("1_gss50")]
+[node name="blockbench_export" parent="RigidBody3D" unique_id=300935979 instance=ExtResource("1_gss50")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+[node name="MeshCollisionGrass" type="MeshInstance3D" parent="RigidBody3D/blockbench_export" unique_id=2037507853]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+layers = 65536
+mesh = SubResource("SphereMesh_gss50")
+skeleton = NodePath("../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=638216681]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.29999998, 0)
 shape = SubResource("BoxShape3D_gss50")

@@ -1,4 +1,4 @@
-[gd_resource type="AudioBusLayout" load_steps=6 format=3 uid="uid://cxiwviuxd5ifs"]
+[gd_resource type="AudioBusLayout" format=3 uid="uid://cxiwviuxd5ifs"]
 
 [sub_resource type="AudioEffectPhaser" id="AudioEffectPhaser_g28q7"]
 resource_name = "Phaser"

@@ -44,7 +44,13 @@ func set_calamity(enabled: bool):
 	fire1.set_intensity(intensity)
 	fire2.set_intensity(intensity)
 	
-	#maby also play an explosion sound when setting it to true?
+	#perhaps next up
+	#make some sort of chair dance where you have to pick an seat where friedy isnt outside the window
+	#one a timer is over all friedies that are on a chair move inside
+	# if you were on  a seat and friedy was outside your window, you die!
+	# if you're not seated by the time when friedy move in, you die
+	#now how on earth do i explain these rules to the player without just outright telling them?
+	# also do this minigame before or after the calamity kicks in?
 	
 	if (enabled):
 		left_bang.play()

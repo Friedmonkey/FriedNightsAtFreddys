@@ -399,9 +399,9 @@ shape = SubResource("CapsuleShape3D_iof21")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 
 [node name="ShakeableCamera" parent="Head" instance=ExtResource("7_3o3af")]
-max_x = 8.0
-max_y = 8.0
-max_z = 3.0
+max_x = 5.0
+max_y = 5.0
+max_z = 1.5
 noise_speed = 150.0
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Head/ShakeableCamera"]
