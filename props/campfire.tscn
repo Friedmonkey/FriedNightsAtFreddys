@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bjpebjflsv2r8"]
+[gd_scene format=3 uid="uid://bjpebjflsv2r8"]
 
 [ext_resource type="PackedScene" uid="uid://cck8i0vjan2og" path="res://models/campfire.glb" id="1_d8t2u"]
 [ext_resource type="Script" uid="uid://bg7s4fwnuuut8" path="res://props/campfire.gd" id="1_poweg"]
@@ -8,33 +8,33 @@
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_qm86m"]
 radius = 0.55
 
-[node name="campfire" type="Node3D"]
+[node name="campfire" type="Node3D" unique_id=1443445417]
 script = ExtResource("1_poweg")
 
-[node name="fire" parent="." instance=ExtResource("1_d8t2u")]
+[node name="fire" parent="." unique_id=246540356 instance=ExtResource("1_d8t2u")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 
-[node name="Fire" parent="fire" instance=ExtResource("3_qm86m")]
+[node name="Fire" parent="fire" unique_id=1482073953 instance=ExtResource("3_qm86m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
 
-[node name="fire_zone" type="Area3D" parent="fire"]
+[node name="fire_zone" type="Area3D" parent="fire" unique_id=1349345732]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="fire/fire_zone"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="fire/fire_zone" unique_id=773529684]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 shape = SubResource("CylinderShape3D_qm86m")
 
-[node name="camp" type="Node3D" parent="."]
+[node name="camp" type="Node3D" parent="." unique_id=2044229673]
 
-[node name="log" parent="camp" instance=ExtResource("2_sjy6i")]
+[node name="log" parent="camp" unique_id=1974544643 instance=ExtResource("2_sjy6i")]
 transform = Transform3D(-0.9924039, -0.08715565, 0.08682408, 0.08682399, -0.9961947, -0.0075961226, 0.08715574, -7.619396e-09, 0.9961947, -2.95, 0.84999996, 0)
 
-[node name="log2" parent="camp" instance=ExtResource("2_sjy6i")]
+[node name="log2" parent="camp" unique_id=2138065717 instance=ExtResource("2_sjy6i")]
 transform = Transform3D(-4.3545054e-08, 0.9961947, 0.08715574, -1, -4.371139e-08, 0, 3.8096983e-09, -0.08715574, 0.9961947, 2.55, 0.3, 0)
 
-[node name="log3" parent="camp" instance=ExtResource("2_sjy6i")]
+[node name="log3" parent="camp" unique_id=73803678 instance=ExtResource("2_sjy6i")]
 transform = Transform3D(0.08715569, 0, 0.9961947, 0, 1, 0, -0.9961947, 0, 0.08715569, 8.742278e-08, -0.15, 3)
 
-[node name="log4" parent="camp" instance=ExtResource("2_sjy6i")]
+[node name="log4" parent="camp" unique_id=183786014 instance=ExtResource("2_sjy6i")]
 transform = Transform3D(-0.0871556, 0, -0.9961947, 0.08682408, 0.9961947, -0.007596111, 0.9924039, -0.08715574, -0.08682395, -8.742278e-08, -0.15, -2.85)
 
 [connection signal="body_entered" from="fire/fire_zone" to="." method="_on_fire_zone_body_entered"]

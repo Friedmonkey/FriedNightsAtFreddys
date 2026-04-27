@@ -9,7 +9,7 @@ const DEBUGGING: bool = false;
 @onready var friedy := $"stalking_friedy"
 @onready var twigSnapSound := $"TwigSnap"
 @onready var ristleSound := $"Ristle"
-@onready var treesFolder := $"../NavMap/trees"
+@onready var treesFolder := $"../NavMap/Island1/friedy_stalk_trees"
 
 # =========================
 # Enums
