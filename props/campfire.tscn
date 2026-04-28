@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cck8i0vjan2og" path="res://models/campfire.glb" id="1_d8t2u"]
 [ext_resource type="Script" uid="uid://bg7s4fwnuuut8" path="res://props/campfire.gd" id="1_poweg"]
 [ext_resource type="PackedScene" uid="uid://bii4tn2or0vmn" path="res://props/log.tscn" id="2_sjy6i"]
+[ext_resource type="AudioStream" uid="uid://by5aafjenimsu" path="res://audio/interaction/short_fire_whoosh.mp3" id="3_dfiy2"]
 [ext_resource type="PackedScene" uid="uid://tbopls8giqmt" path="res://props/Fire.tscn" id="3_qm86m"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qm86m"]
@@ -16,6 +17,11 @@ radius = 0.55
 [node name="fire" parent="." unique_id=246540356 instance=ExtResource("1_d8t2u")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 script = ExtResource("1_poweg")
+
+[node name="WhooshPlayer" type="AudioStreamPlayer3D" parent="fire" unique_id=2091911776]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+stream = ExtResource("3_dfiy2")
+bus = &"interactions"
 
 [node name="StaticBody3D" type="StaticBody3D" parent="fire" unique_id=1320538478]
 

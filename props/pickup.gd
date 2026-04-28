@@ -12,6 +12,7 @@ signal Interact_placed_down
 @onready var audio_player: AudioStreamPlayer3D = AudioStreamPlayer3D.new()
 
 func _ready():
+	audio_player.bus = "interactions"
 	add_child(audio_player)
 	add_to_group("interactable")
 

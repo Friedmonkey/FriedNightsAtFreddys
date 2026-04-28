@@ -435,6 +435,9 @@ target_position = Vector3(0, 0, -2.5)
 [node name="Hand" type="Node3D" parent="Head/Interaction" unique_id=410627062]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.85, -0.9, -1.75)
 
+[node name="InteractionResultPlayer" type="AudioStreamPlayer2D" parent="Head/Interaction" unique_id=994960390]
+bus = &"interactions"
+
 [node name="ShakeableCamera" parent="Head" unique_id=1629756150 instance=ExtResource("7_3o3af")]
 max_x = 5.0
 max_y = 5.0

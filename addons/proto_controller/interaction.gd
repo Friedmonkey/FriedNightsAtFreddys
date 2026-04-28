@@ -7,6 +7,8 @@ extends Node3D
 @onready var ui_label := $"../../CanvasLayer/InteractLabel"
 @onready var status_label := $"../../CanvasLayer/StatusLabel"
 
+@onready var interaction_result_player: AudioStreamPlayer2D = $InteractionResultPlayer
+
 var current: Node3D = null
 var hovered: Node3D = null
 
@@ -26,19 +28,19 @@ func getName(obj: Node3D) -> String:
 func canInteract(obj: Node3D) -> bool:
 	return obj.has_method("Interact")
 
-func getInteractionAction(obj: Node3D) -> InteractionResult:
+func getInteractionAction(obj: Node3D) -> InteractionActionResult:
 	if obj.has_method("InteractGetAction"):
 		return obj.InteractGetAction(current, getName(current))
 	return null
 
-func interact(obj: Node3D) -> bool:
+func interact(obj: Node3D) -> InteractionResult:
 	if obj and obj.has_method("Interact"):
 		var result := getInteractionAction(obj)
 		if result == null || result.can_interact:
-			var consumeCurrent = obj.Interact(current)
-			if consumeCurrent == true:
-				return true
-	return false
+			var res: InteractionResult = obj.Interact(current)
+			if res != null:
+				return res
+	return InteractionResult.new(false, null)
 
 func getSize(obj: Node3D) -> Vector3:
 	if obj == null:
@@ -77,9 +79,13 @@ func handleInteraction():
 		return
 	
 	# ===== INTERACT =====
-	var consumed := interact(hovered)
-	
-	if consumed and current:
+	var actionResult := interact(hovered)
+	if actionResult.sound:
+		interaction_result_player.stop()
+		interaction_result_player.stream = actionResult.sound
+		interaction_result_player.play()
+		pass
+	if actionResult.consume_current and current:
 		current.queue_free()
 		current = null
 

@@ -10,19 +10,19 @@ func _ready() -> void:
 
 func InteractGetName(): return "campfire"
 
-func InteractGetAction(obj: Node3D, name: String) -> InteractionResult:
+func InteractGetAction(obj: Node3D, name: String) -> InteractionActionResult:
 	if obj == null:
-		return InteractionResult.new(false, "add planks to increase the fire.")
+		return InteractionActionResult.new(false, "add planks to increase the fire.")
 
 	if name == "plank":
-		return InteractionResult.new(true, "put plank on the fire")
+		return InteractionActionResult.new(true, "put plank on the fire")
 
-	return InteractionResult.new(false, "only planks can be burned")
-	
-func Interact(obj: Node3D) -> bool:
+	return InteractionActionResult.new(false, "only planks can be burned")
+
+static var FireWhoosh := preload("res://audio/interaction/short_fire_whoosh.mp3")
+func Interact(obj: Node3D) -> InteractionResult:
 	set_intensity(current_intensity + 1)
-	#play fire burn sound effect?
-	return true
+	return InteractionResult.new(true, FireWhoosh)
 	
 #debug stuff
 func _input(event: InputEvent) -> void:
