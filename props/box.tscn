@@ -1,30 +1,20 @@
 [gd_scene format=3 uid="uid://d1etm2mefo76x"]
 
 [ext_resource type="PackedScene" uid="uid://nkf1iuhtox0v" path="res://models/box.glb" id="1_gss50"]
-
-[sub_resource type="SphereMesh" id="SphereMesh_gss50"]
-radius = 0.7
-height = 1.31
-radial_segments = 16
-rings = 8
+[ext_resource type="Script" uid="uid://bpx3sm86gxm8p" path="res://props/pickup.gd" id="1_nuuvu"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gss50"]
 size = Vector3(0.6, 0.6, 0.6)
 
 [node name="box" type="Node3D" unique_id=1688434578]
+script = ExtResource("1_nuuvu")
+Name = "small box"
+Size = Vector3(0.3, 0.3, 0.3)
 
-[node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=1831086173]
-mass = 0.1
-gravity_scale = 0.1
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1167924842]
 
-[node name="blockbench_export" parent="RigidBody3D" unique_id=300935979 instance=ExtResource("1_gss50")]
+[node name="blockbench_export" parent="StaticBody3D" unique_id=300935979 instance=ExtResource("1_gss50")]
 
-[node name="MeshCollisionGrass" type="MeshInstance3D" parent="RigidBody3D/blockbench_export" unique_id=2037507853]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
-layers = 65536
-mesh = SubResource("SphereMesh_gss50")
-skeleton = NodePath("../../..")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=638216681]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=638216681]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.29999998, 0)
 shape = SubResource("BoxShape3D_gss50")

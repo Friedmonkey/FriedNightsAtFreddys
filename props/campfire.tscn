@@ -5,14 +5,23 @@
 [ext_resource type="PackedScene" uid="uid://bii4tn2or0vmn" path="res://props/log.tscn" id="2_sjy6i"]
 [ext_resource type="PackedScene" uid="uid://tbopls8giqmt" path="res://props/Fire.tscn" id="3_qm86m"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_qm86m"]
+size = Vector3(0.55, 0.4, 0.5)
+
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_qm86m"]
 radius = 0.55
 
 [node name="campfire" type="Node3D" unique_id=1443445417]
-script = ExtResource("1_poweg")
 
 [node name="fire" parent="." unique_id=246540356 instance=ExtResource("1_d8t2u")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+script = ExtResource("1_poweg")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="fire" unique_id=1320538478]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="fire/StaticBody3D" unique_id=456655994]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.025000006, 0.09999998, 0)
+shape = SubResource("BoxShape3D_qm86m")
 
 [node name="Fire" parent="fire" unique_id=1482073953 instance=ExtResource("3_qm86m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)

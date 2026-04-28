@@ -1,7 +1,7 @@
 extends Node3D
 
 @onready var player := $Player
-@onready var campfire := $NavMap/Island1/campfire
+@onready var campfire := $NavMap/Island1/campfire/fire
 @onready var airplane: Node3D = $NavMap/Island0/Airplane
 @onready var bridge := $NavMap/bridge
 @onready var time_controller: AnimationPlayer = $vibe/lighing/TimeController

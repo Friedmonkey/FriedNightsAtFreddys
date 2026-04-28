@@ -15,6 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://cvsnfu2dg3qmw" path="res://audio/burn.mp3" id="7_1tksx"]
 [ext_resource type="PackedScene" uid="uid://ejh2ihnhmx77" path="res://props/ShakeableCamera.tscn" id="7_3o3af"]
 [ext_resource type="Texture2D" uid="uid://dybogq655nbby" path="res://textures/fire.png" id="7_q1ipm"]
+[ext_resource type="Script" uid="uid://betie34ejogdn" path="res://addons/proto_controller/interaction.gd" id="7_ymooi"]
 [ext_resource type="AudioStream" uid="uid://dyp1ajj1dhlno" path="res://audio/hurt.mp3" id="8_ths8c"]
 [ext_resource type="Texture2D" uid="uid://root8pfywqu5" path="res://textures/vingette.PNG" id="11_q1ipm"]
 
@@ -395,8 +396,44 @@ mesh = SubResource("CapsuleMesh_ucva2")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 shape = SubResource("CapsuleShape3D_iof21")
 
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=367290035]
+
+[node name="InteractLabel" type="Label" parent="CanvasLayer" unique_id=952484811]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StatusLabel" type="Label" parent="CanvasLayer" unique_id=1248964157]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -23.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+
 [node name="Head" type="Node3D" parent="." unique_id=1403008645]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+
+[node name="Interaction" type="Node3D" parent="Head" unique_id=649150120]
+script = ExtResource("7_ymooi")
+
+[node name="RayCast" type="RayCast3D" parent="Head/Interaction" unique_id=1054056820]
+target_position = Vector3(0, 0, -2.5)
+
+[node name="Hand" type="Node3D" parent="Head/Interaction" unique_id=410627062]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.85, -0.9, -1.75)
 
 [node name="ShakeableCamera" parent="Head" unique_id=1629756150 instance=ExtResource("7_3o3af")]
 max_x = 5.0

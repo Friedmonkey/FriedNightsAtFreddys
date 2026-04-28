@@ -1,5 +1,8 @@
 [gd_scene format=3 uid="uid://b103ykllas2fr"]
 
 [ext_resource type="PackedScene" uid="uid://4pffy5mwwqri" path="res://props/plank.tscn" id="1_bea2n"]
+[ext_resource type="Script" uid="uid://bpx3sm86gxm8p" path="res://props/pickup.gd" id="2_xhcr8"]
 
 [node name="PickupPlank" unique_id=1682190486 instance=ExtResource("1_bea2n")]
+script = ExtResource("2_xhcr8")
+Name = "plank"
