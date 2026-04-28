@@ -2,7 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://4pffy5mwwqri" path="res://props/plank.tscn" id="1_bea2n"]
 [ext_resource type="Script" uid="uid://bpx3sm86gxm8p" path="res://props/pickup.gd" id="2_xhcr8"]
+[ext_resource type="AudioStream" uid="uid://54138sg3nii6" path="res://audio/interaction/wood_place.mp3" id="3_gbu7t"]
 
 [node name="PickupPlank" unique_id=1682190486 instance=ExtResource("1_bea2n")]
 script = ExtResource("2_xhcr8")
 Name = "plank"
+place_sound = ExtResource("3_gbu7t")

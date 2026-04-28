@@ -10,7 +10,34 @@ var planks: Array[MeshInstance3D] = []
 var plank_level := 0
 var bridge_built := false
 
+func InteractGetName(): return "bridge"
+
+func InteractGetAction(obj: Node3D, name: String) -> InteractionActionResult:
+	if obj == null:
+		return InteractionActionResult.new(
+			false,
+			"add planks to build the bridge %d/%d" % [plank_level, MAX_PLANKS]
+		)
+	
+	if name == "plank":
+		if bridge_built:
+			return InteractionActionResult.new(false, "bridge already built")
+		
+		if plank_level >= MAX_PLANKS:
+			return InteractionActionResult.new(true, "finish building the bridge")
+		
+		return InteractionActionResult.new(true, "place plank on the bridge")
+	
+	return InteractionActionResult.new(false, "only planks can be used")
+
+static var WoodPlace := preload("res://audio/interaction/wood_place.mp3")
+
+func Interact(obj: Node3D) -> InteractionResult:
+	set_plank_level(plank_level + 1)
+	return InteractionResult.new(true, WoodPlace)
+
 func _ready() -> void:
+	add_to_group("interactable")
 	setup_planks()
 	hide_planks()
 	bridge_build.finished.connect(bridge_complete)

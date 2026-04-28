@@ -66,6 +66,7 @@ enabled=PackedStringArray("res://addons/mixamo_animation_retargeter/plugin.cfg",
 [global_group]
 
 item_floor="where item can be dropped on"
+interactable="anything that can be interacted with"
 
 [importer_defaults]
 
