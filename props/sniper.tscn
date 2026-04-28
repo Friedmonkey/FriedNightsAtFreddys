@@ -1,5 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://df4qtp1a4ih48"]
+[gd_scene format=3 uid="uid://df4qtp1a4ih48"]
 
 [ext_resource type="PackedScene" uid="uid://df6fsiskmk136" path="res://models/sniper.glb" id="1_h4qes"]
+[ext_resource type="Script" uid="uid://bpx3sm86gxm8p" path="res://props/pickup.gd" id="2_mc4f1"]
 
-[node name="sniper" instance=ExtResource("1_h4qes")]
+[sub_resource type="BoxShape3D" id="BoxShape3D_mc4f1"]
+size = Vector3(0.25, 0.2, 1)
+
+[node name="sniper" unique_id=1362847401 instance=ExtResource("1_h4qes")]
+script = ExtResource("2_mc4f1")
+Name = "hammer"
+Caption = "totally a hammer"
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="6" unique_id=459492744]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0" unique_id=701443505]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.024999976, 0.15, 0)
+shape = SubResource("BoxShape3D_mc4f1")

@@ -24,6 +24,14 @@ func getName(obj: Node3D) -> String:
 	if obj.has_method("InteractGetName"):
 		return obj.InteractGetName()
 	return ""
+	
+func getCaption(obj: Node3D) -> String:
+	if obj == null:
+		return "" 
+	
+	if obj.has_method("InteractGetCaption"):
+		return obj.InteractGetCaption()
+	return getName(obj)
 
 func canInteract(obj: Node3D) -> bool:
 	return obj.has_method("Interact")
@@ -37,7 +45,7 @@ func interact(obj: Node3D) -> InteractionResult:
 	if obj and obj.has_method("Interact"):
 		var result := getInteractionAction(obj)
 		if result == null || result.can_interact:
-			var res: InteractionResult = obj.Interact(current)
+			var res: InteractionResult = obj.Interact(current, getName(current))
 			if res != null:
 				return res
 	return InteractionResult.new(false, null)
@@ -67,7 +75,7 @@ func _process(delta):
 		drop_current()
 
 func handleInteraction():
-	var name = getName(hovered)
+	#var name = getName(hovered)
 	
 	# ===== PICKUP =====
 	if canPickup(hovered):
@@ -119,25 +127,25 @@ func update_ui():
 		ui_label.text = ""
 		return
 	
-	var name = getName(hovered)
+	var caption = getCaption(hovered)
 	var key = get_action_key("interact")
 	
 	if canPickup(hovered):
 		if current == null:
-			ui_label.text = "Press " + key + " to pickup " + name
+			ui_label.text = "Press " + key + " to pickup " + caption
 		else:
 			ui_label.text = "Hands full"
 	elif canInteract(hovered):
 		var result := getInteractionAction(hovered)
 		if result == null:
-			ui_label.text = "Press " + key + " to interact with " + name
+			ui_label.text = "Press " + key + " to interact with " + caption
 		else:
 			if result.can_interact:
 				ui_label.text = "Press " + key + " to " + result.text
 			else:
 				ui_label.text = result.text
 	else:
-		ui_label.text = name
+		ui_label.text = caption
 
 func get_action_key(action: String) -> String:
 	var events = InputMap.action_get_events(action)

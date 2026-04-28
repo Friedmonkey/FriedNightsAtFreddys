@@ -20,7 +20,7 @@ func InteractGetAction(obj: Node3D, name: String) -> InteractionActionResult:
 	return InteractionActionResult.new(false, "only planks can be burned")
 
 static var FireWhoosh := preload("res://audio/interaction/short_fire_whoosh.mp3")
-func Interact(obj: Node3D) -> InteractionResult:
+func Interact(obj: Node3D, name: String) -> InteractionResult:
 	set_intensity(current_intensity + 1)
 	return InteractionResult.new(true, FireWhoosh)
 	

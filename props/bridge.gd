@@ -13,6 +13,15 @@ var bridge_built := false
 func InteractGetName(): return "bridge"
 
 func InteractGetAction(obj: Node3D, name: String) -> InteractionActionResult:
+	if bridge_built:
+		return InteractionActionResult.new(false, "bridge already built")
+	
+	if plank_level >= MAX_PLANKS:
+		if name == "hammer":
+			return InteractionActionResult.new(true, "finish building the bridge")
+		else:
+			return InteractionActionResult.new(false, "requires hammer to build the bridge")
+	
 	if obj == null:
 		return InteractionActionResult.new(
 			false,
@@ -20,21 +29,18 @@ func InteractGetAction(obj: Node3D, name: String) -> InteractionActionResult:
 		)
 	
 	if name == "plank":
-		if bridge_built:
-			return InteractionActionResult.new(false, "bridge already built")
-		
-		if plank_level >= MAX_PLANKS:
-			return InteractionActionResult.new(true, "finish building the bridge")
-		
-		return InteractionActionResult.new(true, "place plank on the bridge")
-	
-	return InteractionActionResult.new(false, "only planks can be used")
+		return InteractionActionResult.new(true, "store the plank near the bridge")
+	elif name == "hammer":
+		return InteractionActionResult.new(false, "place 13 planks first.")
+	else:
+		return InteractionActionResult.new(false, "only planks can be used")
 
 static var WoodPlace := preload("res://audio/interaction/wood_place.mp3")
 
-func Interact(obj: Node3D) -> InteractionResult:
+func Interact(obj: Node3D, name: String) -> InteractionResult:
 	set_plank_level(plank_level + 1)
-	return InteractionResult.new(true, WoodPlace)
+	var consume: bool = (name != "hammer")
+	return InteractionResult.new(consume, WoodPlace)
 
 func _ready() -> void:
 	add_to_group("interactable")

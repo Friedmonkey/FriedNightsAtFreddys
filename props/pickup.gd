@@ -4,6 +4,7 @@ signal Interact_picked_up
 signal Interact_placed_down
 
 @export var Name := "object"
+@export var Caption := ""
 @export var Size := Vector3(0.5, 0.5, 0.5)
 
 @export var pickup_sound: AudioStream = preload("res://audio/interaction/generic_pickup.mp3")
@@ -35,6 +36,12 @@ func OnPlace():
 
 func InteractGetName() -> String:
 	return Name
+
+func InteractGetCaption() -> String:
+	if Caption == "":
+		return Name
+	else:
+		return Caption
 
 func InteractCanPickup() -> bool:
 	return true
