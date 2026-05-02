@@ -1,14 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://bii4tn2or0vmn"]
+[gd_scene format=3 uid="uid://bii4tn2or0vmn"]
 
 [ext_resource type="PackedScene" uid="uid://dnhvgwj361ulb" path="res://models/log.glb" id="1_mshq4"]
+[ext_resource type="Script" uid="uid://c3dc3tmvpxyip" path="res://props/seat.gd" id="2_ak6lx"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ak6lx"]
 size = Vector3(1, 1, 2.8)
 
-[node name="log" instance=ExtResource("1_mshq4")]
+[node name="log" unique_id=2083019705 instance=ExtResource("1_mshq4")]
+script = ExtResource("2_ak6lx")
+Name = "log"
+SeatOffset = Vector3(0.2, 0.1, 0)
+ExitOffset = Vector3(0.8, 0, 0)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1" unique_id=3444154]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0" unique_id=223822284]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -1.1920929e-07)
 shape = SubResource("BoxShape3D_ak6lx")

@@ -71,25 +71,23 @@ func _process(delta):
 	
 	if Input.is_action_just_pressed("interact"):
 		if hovered:
-			handleInteraction()
+			handleInteraction(hovered)
 	
 	if Input.is_action_just_pressed("drop"):
 		drop_current()
 
-func handleInteraction():
-	#var name = getName(hovered)
-	
+func handleInteraction(obj: Node3D):
 	# ===== PICKUP =====
-	if canPickup(hovered):
+	if canPickup(obj):
 		if current != null:
 			show_status("Hands are full")
 			return
 	
-		pickup(hovered)
+		pickup(obj)
 		return
 	
 	# ===== INTERACT =====
-	var actionResult := interact(hovered)
+	var actionResult := interact(obj)
 	if actionResult.sound:
 		interaction_result_player.stop()
 		interaction_result_player.stream = actionResult.sound

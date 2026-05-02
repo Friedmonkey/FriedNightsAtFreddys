@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dv8g5jkvov5ww"]
 
-[ext_resource type="Script" uid="uid://c3dc3tmvpxyip" path="res://props/chair.gd" id="1_1b027"]
+[ext_resource type="Script" uid="uid://c3dc3tmvpxyip" path="res://props/seat.gd" id="1_1b027"]
 [ext_resource type="PackedScene" uid="uid://bxvmdwu0ivnwm" path="res://models/chair/chair.glb" id="1_sig3x"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1b027"]
@@ -14,6 +14,7 @@ size = Vector3(0.1, 0.25, 1.5)
 
 [node name="Chair" type="Node3D" unique_id=228005641]
 script = ExtResource("1_1b027")
+Name = "chair"
 
 [node name="model" parent="." unique_id=1264835520 instance=ExtResource("1_sig3x")]
 

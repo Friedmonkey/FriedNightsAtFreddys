@@ -61,7 +61,10 @@ var fire_level : int = 0
 
 var step_timer := 0.8
 var step_interval := 0.35
+
 var seated : bool = false
+var gettingUpFromSeat : bool = false
+var currentSeat : Node3D = null
 
 signal on_player_died
 
@@ -77,6 +80,7 @@ signal on_player_died
 @onready var hurt_sound := $hurt
 @onready var burn_sound := $Fire/burn
 @onready var vignette: TextureRect = $hurt_overlay/TextureRect
+@onready var interaction: Node3D = $Head/Interaction
 
 @onready var shakeable_camera: Area3D = $Head/ShakeableCamera
 func set_shake_intensity(intensity: float):
@@ -90,6 +94,31 @@ func _ready() -> void:
 	screenTransition.animation_finished.connect(_transition_animation_finished)
 	burn_timer.timeout.connect(_on_burn_tick)
 	screenTransition.play("fade_in")
+
+func sit(seat: Node3D, offset: Vector3):
+	seated = true
+	
+	if seat != null:
+		global_position = seat.to_global(offset)
+		currentSeat = seat
+
+func stand():
+	if !seated || gettingUpFromSeat:
+		return
+	
+	if currentSeat != null:
+		var offset := Vector3.ZERO
+		if currentSeat.has_method("SeatGetExitOffset"):
+			offset = currentSeat.SeatGetExitOffset()
+		global_position = currentSeat.to_global(offset)
+		gettingUpFromSeat = true
+		ForceInteract(currentSeat)
+		gettingUpFromSeat = false
+		currentSeat = null
+	seated = false
+
+func ForceInteract(obj: Node3D):
+	interaction.handleInteraction(obj)
 
 func set_ablaze(intensity: int):
 	fire_level = intensity
@@ -194,7 +223,12 @@ func _unhandled_input(event: InputEvent) -> void:
 			disable_freefly()
 
 func _physics_process(delta: float) -> void:
-	if (stuck || seated):
+	if (stuck):
+		return
+	
+	if seated:
+		if Input.is_action_just_pressed(input_jump):
+			stand()
 		return
 	# If freeflying, handle freefly and nothing else
 	if can_freefly and freeflying:
