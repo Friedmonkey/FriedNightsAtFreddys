@@ -61,6 +61,7 @@ var fire_level : int = 0
 
 var step_timer := 0.8
 var step_interval := 0.35
+var seated : bool = false
 
 signal on_player_died
 
@@ -76,6 +77,10 @@ signal on_player_died
 @onready var hurt_sound := $hurt
 @onready var burn_sound := $Fire/burn
 @onready var vignette: TextureRect = $hurt_overlay/TextureRect
+
+@onready var shakeable_camera: Area3D = $Head/ShakeableCamera
+func set_shake_intensity(intensity: float):
+	shakeable_camera.overalShakeIntensity = intensity
 
 func _ready() -> void:
 	check_input_mappings()
@@ -189,7 +194,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			disable_freefly()
 
 func _physics_process(delta: float) -> void:
-	if (stuck):
+	if (stuck || seated):
 		return
 	# If freeflying, handle freefly and nothing else
 	if can_freefly and freeflying:

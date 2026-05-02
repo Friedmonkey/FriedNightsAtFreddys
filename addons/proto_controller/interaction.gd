@@ -2,6 +2,8 @@ extends Node3D
 
 @onready var ray := $RayCast
 @onready var hand := $Hand
+@onready var player: CharacterBody3D = $"../.."
+
 
 # go up twice: INTERACTION -> Head -> Player
 @onready var ui_label := $"../../CanvasLayer/InteractLabel"
@@ -38,14 +40,14 @@ func canInteract(obj: Node3D) -> bool:
 
 func getInteractionAction(obj: Node3D) -> InteractionActionResult:
 	if obj.has_method("InteractGetAction"):
-		return obj.InteractGetAction(current, getName(current))
+		return obj.InteractGetAction(player, current, getName(current))
 	return null
 
 func interact(obj: Node3D) -> InteractionResult:
 	if obj and obj.has_method("Interact"):
 		var result := getInteractionAction(obj)
 		if result == null || result.can_interact:
-			var res: InteractionResult = obj.Interact(current, getName(current))
+			var res: InteractionResult = obj.Interact(player, current, getName(current))
 			if res != null:
 				return res
 	return InteractionResult.new(false, null)

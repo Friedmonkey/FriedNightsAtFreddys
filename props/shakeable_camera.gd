@@ -13,6 +13,7 @@ extends Area3D
 @export var noise_speed := 50.0
 var trauma := 0.0
 var time := 0.0
+var overalShakeIntensity := 1.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -24,10 +25,10 @@ func _process(delta: float) -> void:
 	time += delta
 	trauma = max(trauma - delta * trauma_reduction_rate, 0.0)
 	
-	camera.rotation_degrees.x = initial_rotation.x + max_x * get_shake_intensity() * _get_noise_from_seed(0)
-	camera.rotation_degrees.y = initial_rotation.x + max_y * get_shake_intensity() * _get_noise_from_seed(1)
-	camera.rotation_degrees.z = initial_rotation.x + max_z * get_shake_intensity() * _get_noise_from_seed(2)
-	
+	camera.rotation_degrees.x = initial_rotation.x + ((max_x * get_shake_intensity() * _get_noise_from_seed(0)) * overalShakeIntensity)
+	camera.rotation_degrees.y = initial_rotation.x + ((max_y * get_shake_intensity() * _get_noise_from_seed(1)) * overalShakeIntensity)
+	camera.rotation_degrees.z = initial_rotation.x + ((max_z * get_shake_intensity() * _get_noise_from_seed(2)) * overalShakeIntensity)
+
 func add_trauma(trauma_amount: float):
 	trauma = clamp(trauma + trauma_amount, 0.0, 1.0)
 	

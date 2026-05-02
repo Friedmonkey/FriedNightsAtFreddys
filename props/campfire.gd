@@ -10,7 +10,7 @@ func _ready() -> void:
 
 func InteractGetName(): return "campfire"
 
-func InteractGetAction(obj: Node3D, name: String) -> InteractionActionResult:
+func InteractGetAction(player: CharacterBody3D, obj: Node3D, name: String) -> InteractionActionResult:
 	if obj == null:
 		return InteractionActionResult.new(false, "add planks to increase the fire.")
 
@@ -20,7 +20,7 @@ func InteractGetAction(obj: Node3D, name: String) -> InteractionActionResult:
 	return InteractionActionResult.new(false, "only planks can be burned")
 
 static var FireWhoosh := preload("res://audio/interaction/short_fire_whoosh.mp3")
-func Interact(obj: Node3D, name: String) -> InteractionResult:
+func Interact(player: CharacterBody3D, obj: Node3D, name: String) -> InteractionResult:
 	set_intensity(current_intensity + 1)
 	return InteractionResult.new(true, FireWhoosh)
 	

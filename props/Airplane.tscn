@@ -11,6 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://dsbs4fjx78xbf" path="res://audio/turbulance.mp3" id="7_g2tlc"]
 [ext_resource type="AudioStream" uid="uid://dwj8dwpsdk8yw" path="res://audio/small_explosion.mp3" id="8_ehyou"]
 [ext_resource type="PackedScene" uid="uid://bw6qdn4jctlbi" path="res://props/TraumaCauser.tscn" id="10_bw3iw"]
+[ext_resource type="AudioStream" uid="uid://ouqgi1e5po72" path="res://audio/airpline_dingle.mp3" id="12_qcbo4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_u8e87"]
 size = Vector3(0.25, 4.75, 2.7)
@@ -373,6 +374,7 @@ stream = ExtResource("7_g2tlc")
 attenuation_model = 3
 volume_db = -3.0
 unit_size = 20.0
+autoplay = true
 max_distance = 40.0
 bus = &"ambiance"
 
@@ -448,5 +450,14 @@ trauma_amount = 1.0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Calamity/ExplosionTrauma" unique_id=670855679]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.25)
 shape = SubResource("BoxShape3D_1iyhi")
+
+[node name="Dingle" type="AudioStreamPlayer3D" parent="." unique_id=2134011028]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.90000004, -3)
+stream = ExtResource("12_qcbo4")
+attenuation_model = 3
+volume_db = -3.0
+unit_size = 20.0
+max_distance = 40.0
+bus = &"ambiance"
 
 [editable path="scaled/model"]

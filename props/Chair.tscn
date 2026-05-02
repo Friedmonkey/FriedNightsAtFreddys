@@ -1,5 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://dv8g5jkvov5ww"]
+[gd_scene format=3 uid="uid://dv8g5jkvov5ww"]
 
+[ext_resource type="Script" uid="uid://c3dc3tmvpxyip" path="res://props/chair.gd" id="1_1b027"]
 [ext_resource type="PackedScene" uid="uid://bxvmdwu0ivnwm" path="res://models/chair/chair.glb" id="1_sig3x"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1b027"]
@@ -11,24 +12,25 @@ size = Vector3(1.4, 1.85, 0.35)
 [sub_resource type="BoxShape3D" id="BoxShape3D_nc4kj"]
 size = Vector3(0.1, 0.25, 1.5)
 
-[node name="Chair" type="Node3D"]
+[node name="Chair" type="Node3D" unique_id=228005641]
+script = ExtResource("1_1b027")
 
-[node name="model" parent="." instance=ExtResource("1_sig3x")]
+[node name="model" parent="." unique_id=1264835520 instance=ExtResource("1_sig3x")]
 
-[node name="collision" type="StaticBody3D" parent="."]
+[node name="collision" type="StaticBody3D" parent="." unique_id=1389750207]
 
-[node name="seat" type="CollisionShape3D" parent="collision"]
+[node name="seat" type="CollisionShape3D" parent="collision" unique_id=1986240546]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.099999994)
 shape = SubResource("BoxShape3D_1b027")
 
-[node name="backseat" type="CollisionShape3D" parent="collision"]
+[node name="backseat" type="CollisionShape3D" parent="collision" unique_id=2009384487]
 transform = Transform3D(1, 0, 0, 0, 0.9659258, -0.25881904, 0, 0.25881904, 0.9659258, 5.9604645e-08, 2.313926, 1.009116)
 shape = SubResource("BoxShape3D_qqkig")
 
-[node name="left_arm" type="CollisionShape3D" parent="collision"]
+[node name="left_arm" type="CollisionShape3D" parent="collision" unique_id=1738054405]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 2.175, 0.25)
 shape = SubResource("BoxShape3D_nc4kj")
 
-[node name="right_arm" type="CollisionShape3D" parent="collision"]
+[node name="right_arm" type="CollisionShape3D" parent="collision" unique_id=141998043]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 2.175, 0.25)
 shape = SubResource("BoxShape3D_nc4kj")

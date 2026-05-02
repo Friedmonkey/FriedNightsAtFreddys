@@ -12,7 +12,7 @@ var bridge_built := false
 
 func InteractGetName(): return "bridge"
 
-func InteractGetAction(obj: Node3D, name: String) -> InteractionActionResult:
+func InteractGetAction(player: CharacterBody3D, obj: Node3D, name: String) -> InteractionActionResult:
 	if bridge_built:
 		return InteractionActionResult.new(false, "bridge already built")
 	
@@ -37,7 +37,7 @@ func InteractGetAction(obj: Node3D, name: String) -> InteractionActionResult:
 
 static var WoodPlace := preload("res://audio/interaction/wood_place.mp3")
 
-func Interact(obj: Node3D, name: String) -> InteractionResult:
+func Interact(player: CharacterBody3D, obj: Node3D, name: String) -> InteractionResult:
 	set_plank_level(plank_level + 1)
 	var consume: bool = (name != "hammer")
 	return InteractionResult.new(consume, WoodPlace)
