@@ -10,6 +10,8 @@ extends Node3D
 @onready var woods_player_spawn: Node3D = $NavMap/Island1/player_spawn
 
 
+#TODO: add wind gusts? https://godotshaders.com/shader/dynamic-wind-trail-with-loops/
+
 enum GameState {
 	NONE,
 	INTRO,

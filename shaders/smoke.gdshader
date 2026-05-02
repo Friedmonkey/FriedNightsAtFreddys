@@ -6,7 +6,8 @@
 */
 
 shader_type spatial;
-render_mode depth_draw_opaque;
+//render_mode depth_draw_opaque;
+render_mode blend_mix;
 
 // 煙の細かさ
 uniform float scale = 1.0;
@@ -116,5 +117,6 @@ void fragment( )
 
 	NORMAL_MAP = normalize( vec3( sobel_filter.x + 0.5, -sobel_filter.y + 0.5, 1.0 ) );
 	ALBEDO = smoke_color.rgb;
-	ALPHA = clamp( smoke_noise, 0.0, 1.0 );
+	//ALPHA = clamp( smoke_noise, 0.0, 1.0 );
+	ALPHA = clamp( smoke_noise, 0.0, 1.0 ) * smoke_color.a;
 }

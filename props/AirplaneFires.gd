@@ -10,7 +10,8 @@ extends Node3D
 @onready var explosionTrauma := $ExplosionTrauma
 
 @onready var traumaCauser := $TraumaCauser
-@onready var smoke: MeshInstance3D = $Smoke
+@onready var smoke1: MeshInstance3D = $Smoke1
+@onready var smoke2: MeshInstance3D = $Smoke2
 
 @onready var dangerAlarm := $DangerAlarm
 @onready var beeping := $Beeping
@@ -18,6 +19,28 @@ extends Node3D
 @onready var siren := $Siren
 
 @onready var lights := $lights
+
+@export var smoke1_start_time := 0.0
+@export var smoke2_start_time := 5.0
+
+@export var smoke1_fill_time := 6.0
+@export var smoke2_fill_time := 6.0
+
+@export_range(0.0, 1.0) var smoke1_max_alpha := 1.0
+@export_range(0.0, 1.0) var smoke2_max_alpha := 1.0
+
+var smoke_time := 0.0
+var smoke_active := false
+
+#var smoke_timer: Timer
+
+#func _ready() -> void:
+	#smoke_timer = Timer.new()
+	#smoke_timer.wait_time = 5
+	##smoke_timer.autostart = true
+	#add_child(smoke_timer)
+	#smoke_timer.timeout.connect(smoke_update)
+
 #var has_calamity := false
 
 #var current_intensity: int = 0
@@ -26,15 +49,18 @@ extends Node3D
 	#if player == null:
 		#player.THE_PLAYER_IS_NULL("PLEASE ASSIGN A PLAYER IN THE EDITOR")
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	traumaCauser.cause_trauma()
+	
+	if smoke_active:
+		smoke_time += delta
+		update_smoke()
 
 func set_calamity(enabled: bool):
 	#has_calamity = enabled
 	var intensity = 5 if enabled else 0
 	fire1.set_intensity(intensity)
 	fire2.set_intensity(intensity)
-	smoke.visible = enabled
 	
 	#perhaps next up
 	#make some sort of chair dance where you have to pick an seat where friedy isnt outside the window
@@ -48,6 +74,8 @@ func set_calamity(enabled: bool):
 		left_bang.play()
 		right_bang.play()
 		explosionTrauma.cause_trauma()
+		smoke_time = 0.0
+		smoke_active = true
 		
 		set_lights(Color.DARK_RED)
 		dangerAlarm.play()
@@ -55,6 +83,10 @@ func set_calamity(enabled: bool):
 		#turbulance.play()
 		siren.play()
 	else:
+		smoke_active = false
+		smoke_time = 0.0
+		smoke1.visible = false
+		smoke2.visible = false
 		set_lights(Color.WHITE)
 		dangerAlarm.stop()
 		beeping.stop()
@@ -67,3 +99,41 @@ func set_lights(color: Color, emmision: bool = true):
 		lamp.material_override.emission_energy_multiplier = 1.0 if emmision else 0.0
 		var light = lamp.find_child("OmniLight3D")
 		light.light_color = color
+
+func set_smoke_transparency(smoke: Node3D, transparency: float):
+	var mat := smoke.material_override as ShaderMaterial
+	if mat == null:
+		return
+
+	var col: Color = mat.get_shader_parameter("smoke_color")
+	col.a = transparency
+	mat.set_shader_parameter("smoke_color", col)
+
+func update_smoke() -> void:
+	# Smoke 1 progress
+	var t1: float = clamp(
+		(smoke_time - smoke1_start_time) / smoke1_fill_time,
+		0.0,
+		1.0
+	)
+	
+	# Smoke 2 progress
+	var t2: float = clamp(
+		(smoke_time - smoke2_start_time) / smoke2_fill_time,
+		0.0,
+		1.0
+	)
+	
+	# Smoke 1
+	if t1 > 0.0:
+		smoke1.visible = true
+		set_smoke_transparency(smoke1, t1 * smoke1_max_alpha)
+	else:
+		smoke1.visible = false
+	
+	# Smoke 2
+	if t2 > 0.0:
+		smoke2.visible = true
+		set_smoke_transparency(smoke2, t2 * smoke2_max_alpha)
+	else:
+		smoke2.visible = false

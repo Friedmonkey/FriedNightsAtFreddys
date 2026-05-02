@@ -15,8 +15,8 @@ func _process(delta: float) -> void:
 	pass
 
 func _on_friedy_mind_friedy_spotted() -> void:
-	if player.seated && player.currentSeat != null:
-		player.stand()
+	#if player.seated && player.currentSeat != null:
+		#player.stand()
 	airplane.setState("crashing")
 
 func _on_airplane_on_player_seat_changed(sit_left: bool, is_sitting: bool) -> void:

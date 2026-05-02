@@ -96,11 +96,21 @@ shader = ExtResource("5_nrdlb")
 shader_parameter/scale = 1.0
 shader_parameter/tex_speed = Vector3(0, -2.2, 0.5)
 shader_parameter/mokomoko = Vector2(0.1, 0.1)
-shader_parameter/smoke_volume = 0.6000000285
+shader_parameter/smoke_volume = 0.50000002375
 shader_parameter/smoke_aperture = 0.28
-shader_parameter/smoke_color = Color(0.185, 0.185, 0.185, 1)
+shader_parameter/smoke_color = Color(0.18, 0.18, 0.18, 0.76862746)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_u8e87"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nrdlb"]
+render_priority = 0
+shader = ExtResource("5_nrdlb")
+shader_parameter/scale = 1.0
+shader_parameter/tex_speed = Vector3(0, -2.2, 0.5)
+shader_parameter/mokomoko = Vector2(0.1, 0.1)
+shader_parameter/smoke_volume = 0.50000002375
+shader_parameter/smoke_aperture = 0.28
+shader_parameter/smoke_color = Color(0.18, 0.18, 0.18, 0.8392157)
 
 [sub_resource type="BoxMesh" id="BoxMesh_xbwb8"]
 size = Vector3(0.75, 0.25, 0.75)
@@ -339,11 +349,24 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -0.75, 10.090909)
 
 [node name="Calamity" type="Node3D" parent="." unique_id=1328690193]
 script = ExtResource("3_egi13")
+smoke1_start_time = 0.5
+smoke2_start_time = 3.0
+smoke1_fill_time = 10.0
+smoke2_fill_time = 12.0
+smoke1_max_alpha = 0.8
+smoke2_max_alpha = 0.7
 
-[node name="Smoke" type="MeshInstance3D" parent="Calamity" unique_id=410795388]
-transform = Transform3D(-1.944, -2.238023e-07, 0, 1.6994987e-07, -2.5599997, 0, 0, 0, 13.394578, 0, 2.48, 0.5)
+[node name="Smoke1" type="MeshInstance3D" parent="Calamity" unique_id=1345612088]
+transform = Transform3D(1.5552, 2.2380226e-07, -1.1709913e-06, 1.3595988e-07, -2.5599997, 0, -1.359599e-07, -1.9565418e-14, -13.394578, 0, 2.9299998, 0.5)
 visible = false
 material_override = SubResource("ShaderMaterial_rw0p3")
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_u8e87")
+
+[node name="Smoke2" type="MeshInstance3D" parent="Calamity" unique_id=410795388]
+transform = Transform3D(-1.944, -2.2380232e-07, -1.1368684e-13, 1.6994989e-07, -2.5599997, -1.3552527e-20, 0, 0, 13.394578, 7.1054274e-15, 2.48, 0.5)
+visible = false
+material_override = SubResource("ShaderMaterial_nrdlb")
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_u8e87")
 
