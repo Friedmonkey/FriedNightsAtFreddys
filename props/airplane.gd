@@ -9,16 +9,23 @@ extends Node3D
 @onready var calamity: Node3D = $Calamity
 @onready var dingle: AudioStreamPlayer3D = $Dingle
 
+signal onPlayerSeatChanged(sit_left: bool, is_sitting: bool)
 
 @export var startingState := "standing"
 
 func _ready() -> void:
 	setState(startingState)
-	pass
+
+func onSeatChangedLeft(is_stting: bool):
+	onPlayerSeatChanged.emit(true, is_stting)
+
+func onSeatChangedRight(is_stting: bool):
+	onPlayerSeatChanged.emit(false, is_stting)
+
 
 #debug stuff
 var states := ["standing", "flying", "crashing"]
-var currentState := 1
+var currentState := 0
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("fire_intensity_up"):
 		currentState += 1
@@ -32,6 +39,7 @@ func _input(event: InputEvent) -> void:
 #TODO: add like a seatbelt on sign or sum stuff
 
 func setState(state: String):
+	currentState = states.find(state)
 	#I LOVE MAGIC NUMBERSSS!!!!!!!
 	if state == "standing":
 		open_doors()
@@ -45,7 +53,7 @@ func setState(state: String):
 		close_doors()
 		trauma_causer.set_trauma_amount(0.1)
 		player.set_shake_intensity(0.08)
-		turbulance.volume_db = -25.0
+		turbulance.volume_db = -20.0
 		calamity.set_calamity(false)
 		dingle.play()
 		pass

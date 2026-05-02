@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://ccuk2lgwcn47t" path="res://props/AirplaneFires.gd" id="3_egi13"]
 [ext_resource type="PackedScene" uid="uid://croslwf1m1pn2" path="res://props/AirplaneFire.tscn" id="3_xbwb8"]
 [ext_resource type="AudioStream" uid="uid://cmhvcek3svvdo" path="res://audio/danger-alarm.mp3" id="5_0uf7d"]
+[ext_resource type="Shader" uid="uid://eing8vs10fjd" path="res://shaders/smoke.gdshader" id="5_nrdlb"]
 [ext_resource type="AudioStream" uid="uid://cvxgp4ewxdfhb" path="res://audio/beeping.mp3" id="6_g2tlc"]
 [ext_resource type="AudioStream" uid="uid://bndswu8rf5idj" path="res://audio/Nuclear Alarm Siren.mp3" id="6_uuykm"]
 [ext_resource type="AudioStream" uid="uid://dsbs4fjx78xbf" path="res://audio/turbulance.mp3" id="7_g2tlc"]
@@ -88,6 +89,18 @@ size = Vector3(0.3, 5.35, 4.4500003)
 margin = 0.1
 height = 7.8
 radius = 1.5500001
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rw0p3"]
+render_priority = 0
+shader = ExtResource("5_nrdlb")
+shader_parameter/scale = 1.0
+shader_parameter/tex_speed = Vector3(0, -2.2, 0.5)
+shader_parameter/mokomoko = Vector2(0.1, 0.1)
+shader_parameter/smoke_volume = 0.6000000285
+shader_parameter/smoke_aperture = 0.28
+shader_parameter/smoke_color = Color(0.185, 0.185, 0.185, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_u8e87"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_xbwb8"]
 size = Vector3(0.75, 0.25, 0.75)
@@ -327,6 +340,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -0.75, 10.090909)
 [node name="Calamity" type="Node3D" parent="." unique_id=1328690193]
 script = ExtResource("3_egi13")
 
+[node name="Smoke" type="MeshInstance3D" parent="Calamity" unique_id=410795388]
+transform = Transform3D(-1.944, -2.238023e-07, 0, 1.6994987e-07, -2.5599997, 0, 0, 0, 13.394578, 0, 2.48, 0.5)
+visible = false
+material_override = SubResource("ShaderMaterial_rw0p3")
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_u8e87")
+
 [node name="AirplaneFire" parent="Calamity" unique_id=527528980 instance=ExtResource("3_xbwb8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.75, -0.70000005, -5.5)
 
@@ -459,5 +479,16 @@ volume_db = -3.0
 unit_size = 20.0
 max_distance = 40.0
 bus = &"ambiance"
+
+[connection signal="onSeatChanged" from="scaled/chairs/Chair1" to="." method="onSeatChangedRight"]
+[connection signal="onSeatChanged" from="scaled/chairs/Chair2" to="." method="onSeatChangedRight"]
+[connection signal="onSeatChanged" from="scaled/chairs/Chair3" to="." method="onSeatChangedRight"]
+[connection signal="onSeatChanged" from="scaled/chairs/Chair4" to="." method="onSeatChangedRight"]
+[connection signal="onSeatChanged" from="scaled/chairs/Chair5" to="." method="onSeatChangedRight"]
+[connection signal="onSeatChanged" from="scaled/chairs/Chair6" to="." method="onSeatChangedLeft"]
+[connection signal="onSeatChanged" from="scaled/chairs/Chair7" to="." method="onSeatChangedLeft"]
+[connection signal="onSeatChanged" from="scaled/chairs/Chair8" to="." method="onSeatChangedLeft"]
+[connection signal="onSeatChanged" from="scaled/chairs/Chair9" to="." method="onSeatChangedLeft"]
+[connection signal="onSeatChanged" from="scaled/chairs/Chair10" to="." method="onSeatChangedLeft"]
 
 [editable path="scaled/model"]

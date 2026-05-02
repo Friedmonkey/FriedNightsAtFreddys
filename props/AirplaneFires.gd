@@ -10,6 +10,7 @@ extends Node3D
 @onready var explosionTrauma := $ExplosionTrauma
 
 @onready var traumaCauser := $TraumaCauser
+@onready var smoke: MeshInstance3D = $Smoke
 
 @onready var dangerAlarm := $DangerAlarm
 @onready var beeping := $Beeping
@@ -33,6 +34,7 @@ func set_calamity(enabled: bool):
 	var intensity = 5 if enabled else 0
 	fire1.set_intensity(intensity)
 	fire2.set_intensity(intensity)
+	smoke.visible = enabled
 	
 	#perhaps next up
 	#make some sort of chair dance where you have to pick an seat where friedy isnt outside the window

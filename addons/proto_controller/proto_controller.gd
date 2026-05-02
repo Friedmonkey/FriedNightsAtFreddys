@@ -227,7 +227,7 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	if seated:
-		if Input.is_action_just_pressed(input_jump):
+		if can_jump && Input.is_action_just_pressed(input_jump):
 			stand()
 		return
 	# If freeflying, handle freefly and nothing else
