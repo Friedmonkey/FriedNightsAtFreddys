@@ -65,6 +65,7 @@ var step_interval := 0.35
 var seated : bool = false
 var gettingUpFromSeat : bool = false
 var currentSeat : Node3D = null
+var currentSeatOffset := Vector3.ZERO
 
 signal on_player_died
 
@@ -101,6 +102,7 @@ func sit(seat: Node3D, offset: Vector3):
 	if seat != null:
 		global_position = seat.to_global(offset)
 		currentSeat = seat
+		currentSeatOffset = offset
 
 func stand():
 	if !seated || gettingUpFromSeat:
@@ -227,6 +229,8 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	if seated:
+		if currentSeat != null:
+			global_position = currentSeat.to_global(currentSeatOffset)
 		if can_jump && Input.is_action_just_pressed(input_jump):
 			stand()
 		return

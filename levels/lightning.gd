@@ -47,4 +47,4 @@ func _process(delta: float) -> void:
 	if thunder_cooldown <= 0.0:
 		if randf() < 0.002:  # cleaner than randi()%500
 			thunder()
-			thunder_cooldown = 5.0
+			thunder_cooldown = 10.0

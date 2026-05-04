@@ -57,11 +57,6 @@ func _process(delta: float) -> void:
 		update_smoke()
 
 func set_calamity(enabled: bool):
-	#has_calamity = enabled
-	var intensity = 5 if enabled else 0
-	fire1.set_intensity(intensity)
-	fire2.set_intensity(intensity)
-	
 	#perhaps next up
 	#make some sort of chair dance where you have to pick an seat where friedy isnt outside the window
 	#one a timer is over all friedies that are on a chair move inside
@@ -71,6 +66,8 @@ func set_calamity(enabled: bool):
 	# also do this minigame before or after the calamity kicks in?
 	
 	if (enabled):
+		fire1.activate_smooth(6.0)
+		fire2.activate_smooth(6.0)
 		left_bang.play()
 		right_bang.play()
 		explosionTrauma.cause_trauma()
@@ -83,6 +80,8 @@ func set_calamity(enabled: bool):
 		#turbulance.play()
 		siren.play()
 	else:
+		fire1.set_intensity(0)
+		fire2.set_intensity(0)
 		smoke_active = false
 		smoke_time = 0.0
 		smoke1.visible = false

@@ -19,9 +19,15 @@ func set_intensity(value: int) -> void:
 	value = clamp(value, 0, INTENSITY_TIMES.size() - 1)
 
 	if not anim_player.has_animation("intensity"):
-		push_error("Campfire missing 'intensity' animation")
+		push_error("Fire missing 'intensity' animation")
 		return
 
 	anim_player.play("intensity")
 	anim_player.seek(INTENSITY_TIMES[value], true)
 	anim_player.pause()
+
+func activate_smooth(duration: float = 6.0):
+	anim_player.play("intensity")
+
+	var anim_length := anim_player.current_animation_length
+	anim_player.speed_scale = anim_length / duration

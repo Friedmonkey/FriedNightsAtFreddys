@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://croslwf1m1pn2"]
+[gd_scene format=3 uid="uid://croslwf1m1pn2"]
 
 [ext_resource type="Script" uid="uid://b3j4ktmvtwqtw" path="res://props/fire.gd" id="1_4x73g"]
 [ext_resource type="Texture2D" uid="uid://cgbxmicvoqrg7" path="res://textures/T_fire01.png" id="2_8uuhk"]
@@ -101,6 +101,49 @@ color = Color(1.9614621, 1.0096155, 0.3750512, 1)
 
 [sub_resource type="QuadMesh" id="QuadMesh_y8p1g"]
 
+[sub_resource type="Curve" id="Curve_4x73g"]
+_data = [Vector2(0, 0), 0.0, 6.1638584, 0, 0, Vector2(0.11013217, 0.8314607), 1.1252477, 1.1252477, 0, 0, Vector2(0.41409695, 1), 0.0, 0.0, 0, 0, Vector2(0.48898685, 1), -1.1052433, -1.1052433, 0, 0, Vector2(1, 0.011235952), -2.550563, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_8uuhk"]
+curve = SubResource("Curve_4x73g")
+
+[sub_resource type="Gradient" id="Gradient_tt5k6"]
+offsets = PackedFloat32Array(0.50409836, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_eq673"]
+gradient = SubResource("Gradient_tt5k6")
+
+[sub_resource type="Curve" id="Curve_ur4gh"]
+_data = [Vector2(0, 0.64044946), 0.0, 1.0202243, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_des6q"]
+curve = SubResource("Curve_ur4gh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_p1sa8"]
+lifetime_randomness = 0.09
+particle_flag_rotate_y = true
+emission_shape = 1
+emission_sphere_radius = 0.2
+angle_min = -179.99998
+angle_max = 180.00002
+direction = Vector3(0, -50, 1)
+spread = 20.0
+initial_velocity_min = 0.79999995
+initial_velocity_max = 1.1999999
+angular_velocity_min = -37.400017
+angular_velocity_max = 46.749985
+radial_velocity_min = -2.2351742e-05
+radial_velocity_max = 0.49997765
+gravity = Vector3(0, 0.8, 5)
+scale_min = 0.9
+scale_max = 1.4
+scale_curve = SubResource("CurveTexture_des6q")
+color = Color(0.2373842, 0.24090542, 0.22443536, 0.945)
+color_ramp = SubResource("GradientTexture1D_eq673")
+alpha_curve = SubResource("CurveTexture_8uuhk")
+
 [sub_resource type="Animation" id="Animation_qm86m"]
 resource_name = "Init"
 length = 2.0
@@ -189,6 +232,18 @@ tracks/3/keys = {
 "update": 0,
 "values": [1.0]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("smoke:amount_ratio")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_poweg"]
 resource_name = "intensity"
@@ -240,6 +295,18 @@ tracks/3/keys = {
 "update": 0,
 "values": [0.0, 0.1, 1.0]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("smoke:amount_ratio")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_en4yi"]
 _data = {
@@ -247,10 +314,10 @@ _data = {
 &"intensity": SubResource("Animation_poweg")
 }
 
-[node name="AirplaneFire" type="Node3D"]
+[node name="AirplaneFire" type="Node3D" unique_id=1224065358]
 script = ExtResource("1_4x73g")
 
-[node name="flame" type="GPUParticles3D" parent="."]
+[node name="flame" type="GPUParticles3D" parent="." unique_id=751433863]
 material_override = SubResource("StandardMaterial3D_alv52")
 amount = 50
 amount_ratio = 0.0
@@ -258,7 +325,7 @@ lifetime = 1.11
 process_material = SubResource("ParticleProcessMaterial_ibwtd")
 draw_pass_1 = SubResource("QuadMesh_nj0wl")
 
-[node name="sparks" type="GPUParticles3D" parent="."]
+[node name="sparks" type="GPUParticles3D" parent="." unique_id=578325409]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 material_override = SubResource("StandardMaterial3D_538fl")
 amount = 20
@@ -266,19 +333,26 @@ amount_ratio = 0.0
 process_material = SubResource("ParticleProcessMaterial_a2cnw")
 draw_pass_1 = SubResource("QuadMesh_y8p1g")
 
-[node name="flickerlight" type="OmniLight3D" parent="."]
+[node name="smoke" type="GPUParticles3D" parent="." unique_id=971626428]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
+material_override = SubResource("StandardMaterial3D_alv52")
+amount = 100
+amount_ratio = 0.0
+lifetime = 3.0
+process_material = SubResource("ParticleProcessMaterial_p1sa8")
+draw_pass_1 = SubResource("QuadMesh_nj0wl")
+
+[node name="flickerlight" type="OmniLight3D" parent="." unique_id=1238065082]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.5, 0)
 light_color = Color(0.9411048, 0.34200296, 0.11746507, 1)
 light_energy = 5.69
 omni_range = 0.0
 
-[node name="flickeranim" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_poweg")
-}
-autoplay = "Init"
+[node name="flickeranim" type="AnimationPlayer" parent="." unique_id=1188252978]
+libraries/ = SubResource("AnimationLibrary_poweg")
+autoplay = &"Init"
 
-[node name="crackle" type="AudioStreamPlayer3D" parent="."]
+[node name="crackle" type="AudioStreamPlayer3D" parent="." unique_id=610214046]
 stream = ExtResource("4_eq673")
 attenuation_model = 1
 volume_db = -80.0
@@ -286,8 +360,6 @@ max_db = -2.656
 autoplay = true
 bus = &"ambiance"
 
-[node name="intensity" type="AnimationPlayer" parent="."]
+[node name="intensity" type="AnimationPlayer" parent="." unique_id=1303792848]
 reset_on_save = false
-libraries = {
-&"": SubResource("AnimationLibrary_en4yi")
-}
+libraries/ = SubResource("AnimationLibrary_en4yi")

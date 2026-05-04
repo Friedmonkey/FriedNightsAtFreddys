@@ -14,6 +14,18 @@
 [ext_resource type="PackedScene" uid="uid://bw6qdn4jctlbi" path="res://props/TraumaCauser.tscn" id="10_bw3iw"]
 [ext_resource type="AudioStream" uid="uid://ouqgi1e5po72" path="res://audio/airpline_dingle.mp3" id="12_qcbo4"]
 
+[sub_resource type="Curve" id="Curve_nrdlb"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.4967742, 0.4759428), 2.0644672, 2.0644672, 0, 0, Vector2(0.9709677, 0.98309493), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_rw0p3"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.99677414, 0.9746424), -0.71462375, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_u8e87"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.7645161, 0.526658), 0.61139977, 0.61139977, 0, 0, Vector2(0.99032253, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_u8e87"]
 size = Vector3(0.25, 4.75, 2.7)
 
@@ -120,9 +132,17 @@ size = Vector3(4, 4, 23.5)
 
 [node name="Airplane" type="Node3D" unique_id=584851380]
 script = ExtResource("1_7fspx")
+rotation_duration = 20.0
+max_pitch = -10.0
+max_roll = 10.0
+pitch_curve = SubResource("Curve_nrdlb")
+roll_curve = SubResource("Curve_rw0p3")
+fall_duration = 80.0
+crash_drop_distance = 250.0
+height_curve = SubResource("Curve_u8e87")
 
 [node name="scaled" type="Node3D" parent="." unique_id=310753191]
-transform = Transform3D(0.55, 0, 0, 0, 0.55, 0, 0, 0, 0.55, 0, 0, 0)
+transform = Transform3D(0.54999995, -1.4901161e-08, 0, 1.4901161e-08, 0.54999995, 0, 0, 0, 0.55, 0, 0, 0)
 
 [node name="model" parent="scaled" unique_id=69171638 instance=ExtResource("1_duits")]
 
