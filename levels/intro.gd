@@ -21,7 +21,7 @@ func _on_friedy_mind_friedy_spotted() -> void:
 	await get_tree().create_timer(2).timeout
 	lightning.thunder()
 	await get_tree().create_timer(2).timeout
-	airplane.setState("crashing")
+	airplane.setState(airplane.State.CRASHING)
 	lightning.night()
 	
 
@@ -32,4 +32,10 @@ func _on_airplane_on_player_seat_changed(sit_left: bool, is_sitting: bool) -> vo
 		friedy_mind.hide_friedy()
 		#if airplane.currentState == 2: #crashing
 			#airplane.setState("flying")
+	pass # Replace with function body.
+
+
+func _on_airplane_crash_finished() -> void:
+	await get_tree().create_timer(0.2).timeout
+	player.Transition("fade_out")
 	pass # Replace with function body.

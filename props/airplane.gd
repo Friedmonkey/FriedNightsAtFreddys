@@ -1,7 +1,14 @@
 extends Node3D
 
+enum State {
+	STANDING = 0,
+	FLYING = 1,
+	CRASHING = 2,
+	CRASHED = 3
+}
+
 @export var player : Node3D
-@export var startingState := "standing"
+@export var startingState := State.STANDING
 
 @export_group("Crash Rotation")
 
@@ -21,6 +28,11 @@ extends Node3D
 @export var crash_drop_distance := 25.0
 @export var height_curve: Curve
 
+@export_group("Crash Landing")
+
+@export var crash_final_pitch := 0.0
+@export var crash_final_roll := 0.0
+@export var settle_duration := 0.5
 
 @onready var right_door: MeshInstance3D = $scaled/model/right_door
 @onready var left_door: MeshInstance3D = $scaled/model/left_door
@@ -28,12 +40,24 @@ extends Node3D
 @onready var turbulance: AudioStreamPlayer3D = $Calamity/Turbulance
 @onready var calamity: Node3D = $Calamity
 @onready var dingle: AudioStreamPlayer3D = $Dingle
+@onready var crash: AudioStreamPlayer3D = $Crash
+
+@onready var siren: AudioStreamPlayer3D = $Calamity/Siren
+@onready var danger_alarm: AudioStreamPlayer3D = $Calamity/DangerAlarm
+
+var current_state: State = State.STANDING
+
 
 signal onPlayerSeatChanged(sit_left: bool, is_sitting: bool)
+signal crash_finished
 
-var crash_rotation_time := 0.0
-var crash_fall_time := 0.0
+var crash_time := 0.0
 var rotating_plane := false
+var settling := false
+var settle_time := 0.0
+
+#var start_rot := Vector3.ZERO
+
 
 var original_position := Vector3.ZERO
 
@@ -44,6 +68,9 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if rotating_plane:
 		update_crash_rotation(delta)
+	
+	if settling:
+		update_settle(delta)
 
 func onSeatChangedLeft(is_stting: bool):
 	onPlayerSeatChanged.emit(true, is_stting)
@@ -53,24 +80,26 @@ func onSeatChangedRight(is_stting: bool):
 
 
 #debug stuff
-var states := ["standing", "flying", "crashing"]
-var currentState := 0
+#var states := ["standing", "flying", "crashing", "crashed"]
+#var currentState := 0
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("fire_intensity_up"):
-		currentState += 1
+		current_state = wrap_state(current_state + 1)
 	elif event.is_action_pressed("fire_intensity_down"):
-		currentState -= 1
+		current_state = wrap_state(current_state - 1)
 	else:
 		return
-	currentState = clamp(currentState, 0, 2)
-	setState(states[currentState])
 	
+	setState(current_state)
+
+func wrap_state(value: int) -> State:
+	return (value + State.size()) % State.size() as State
 #TODO: add like a seatbelt on sign or sum stuff
 
-func setState(state: String):
-	currentState = states.find(state)
+func setState(newState: State):
+	current_state = newState
 	#I LOVE MAGIC NUMBERSSS!!!!!!!
-	if state == "standing":
+	if newState == State.STANDING:
 		open_doors()
 		trauma_causer.set_trauma_amount(0)
 		player.set_shake_intensity(0)
@@ -81,7 +110,7 @@ func setState(state: String):
 		rotation_degrees = Vector3.ZERO
 		position = original_position
 		pass
-	elif state == "flying":
+	elif newState == State.FLYING:
 		close_doors()
 		trauma_causer.set_trauma_amount(0.1)
 		player.set_shake_intensity(0.08)
@@ -92,23 +121,56 @@ func setState(state: String):
 		rotation_degrees = Vector3.ZERO
 		position = original_position
 		pass
-	elif state == "crashing":
+	elif newState == State.CRASHING:
 		close_doors()
 		trauma_causer.set_trauma_amount(0.1)
 		player.set_shake_intensity(1.0)
 		turbulance.volume_db = -3.0
 		calamity.set_calamity(true)
-		crash_rotation_time = 0.0
-		crash_fall_time = 0.0
+		crash_time = 0.0
 		rotating_plane = enable_crash_rotation
 		pass
+	elif newState == State.CRASHED:
+		if !calamity.has_calamity:
+			calamity.set_calamity(true)
+		crash.play()
+		
+		#rotation_degrees.x = max_pitch * 0.9
+		#rotation_degrees.z = max_roll * 0.9
+		position.y = original_position.y - (height_curve.sample(0.9) * crash_drop_distance)
+		
+		settling = true
+		settle_time = 0.0
+		#start_rot = rotation_degrees
+		
+		player.set_shake_intensity(3)
+		trauma_causer.set_trauma_amount(1.0)
+		trauma_causer.cause_trauma()
+		trauma_causer.set_trauma_amount(0)
+		
+		siren.stop()
+		danger_alarm.stop()
+		
+		open_doors()
+		turbulance.volume_db = -80.0
+		
+		rotating_plane = false
+		#settling = false
+		crash_time = 0.0
+		
+		#player.set_shake_intensity(0)
+
+
+func on_crash_impact():
+	setState(State.CRASHED)
+	crash_finished.emit()
+
 
 func update_crash_rotation(delta: float):
-	crash_rotation_time += delta
-	crash_fall_time += delta
+	crash_time += delta
 	
-	var rt: float = clamp(crash_rotation_time / rotation_duration, 0.0, 1.0)
-	var ft: float = clamp(crash_fall_time / fall_duration, 0.0, 1.0)
+	var rt: float = clamp(crash_time / rotation_duration, 0.0, 1.0)
+	var ft: float = clamp(crash_time / fall_duration, 0.0, 1.0)
 	
 	var pitch_t := rt
 	var roll_t := rt
@@ -127,6 +189,27 @@ func update_crash_rotation(delta: float):
 	rotation_degrees.z = lerp(0.0, max_roll, roll_t)
 	
 	position.y = original_position.y - (height_t * crash_drop_distance)
+	
+	if ft >= 0.90 && rotating_plane:
+		on_crash_impact()
+
+func update_settle(delta: float):
+	settle_time += delta
+	
+	var t: float = clamp(settle_time / settle_duration, 0.0, 1.0)
+	t = t * t * (3.0 - 2.0 * t) # smoothstep
+	
+	var target_rot := Vector3(
+		crash_final_pitch,
+		rotation_degrees.y,
+		crash_final_roll
+	)
+	
+	rotation_degrees = rotation_degrees.lerp(target_rot, t)
+	
+	if t >= 1.0:
+		settling = false
+		rotation_degrees = target_rot
 
 
 func open_doors():
