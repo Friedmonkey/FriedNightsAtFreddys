@@ -527,6 +527,7 @@ stretch_mode = 1
 
 [node name="Animator" type="AnimationPlayer" parent="Transition" unique_id=1280919482]
 libraries/ = SubResource("AnimationLibrary_6dqce")
+autoplay = &"black"
 
 [node name="Fire" type="Node3D" parent="." unique_id=1887837618]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.5)
