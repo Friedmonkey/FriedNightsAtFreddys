@@ -7,6 +7,7 @@ extends Node3D
 @export var max_attempts := 10
 
 func _ready():
+	DropSystem.set_world_items($".")
 	for i in 10:
 		spawn_one()
 	spawn_loop()

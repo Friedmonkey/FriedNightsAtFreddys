@@ -157,13 +157,13 @@ func setState(newState: State):
 		rotating_plane = false
 		#settling = false
 		crash_time = 0.0
+		crash_finished.emit()
 		
 		#player.set_shake_intensity(0)
 
 
 func on_crash_impact():
 	setState(State.CRASHED)
-	crash_finished.emit()
 
 
 func update_crash_rotation(delta: float):

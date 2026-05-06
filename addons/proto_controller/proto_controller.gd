@@ -94,11 +94,13 @@ func _ready() -> void:
 	look_rotation.x = head.rotation.x
 	screenTransition.animation_finished.connect(_transition_animation_finished)
 	burn_timer.timeout.connect(_on_burn_tick)
-	Transition("fade_in")
+	#Transition("black")
 
 func Transition(name: String):
-	if screenTransition.has_animation(name):
-		screenTransition.play(name)
+	if !screenTransition.has_animation(name):
+		screenTransition.TRANSITION_NAME_NOT_FOUND("TRANSITION NAME NOT FOUND!")	
+	screenTransition.play(name)
+	return screenTransition.animation_finished
 
 func sit(seat: Node3D, offset: Vector3):
 	seated = true

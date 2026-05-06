@@ -1,6 +1,9 @@
 extends Node
 
-@onready var world_items = get_tree().current_scene.get_node("WorldItems")
+var world_items: Node3D #= get_tree().current_scene.get_node("WorldItems")
+
+func set_world_items(new: Node3D):
+	world_items = new
 
 func can_drop(pos: Vector3, size: Vector3) -> bool:
 	return ray_to_floor(pos, size) != Vector3.INF

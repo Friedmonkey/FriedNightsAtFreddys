@@ -7,6 +7,7 @@ extends Node3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	player.Transition("fade_in")
 	pass # Replace with function body.
 
 
@@ -37,5 +38,6 @@ func _on_airplane_on_player_seat_changed(sit_left: bool, is_sitting: bool) -> vo
 
 func _on_airplane_crash_finished() -> void:
 	await get_tree().create_timer(0.2).timeout
-	player.Transition("fade_out")
+	IntroSequence.start(player)
+	#player.Transition("fade_out")
 	pass # Replace with function body.
