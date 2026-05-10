@@ -28,6 +28,19 @@ enum State {
 @export var crash_drop_distance := 25.0
 @export var height_curve: Curve
 
+@export_group("Crash Intensity")
+
+@export var intensity_curve: Curve
+
+@export var turbulence_start_volume := -20.0
+@export var turbulence_end_volume := -3.0
+
+@export var shake_start_intensity := 0.08
+@export var shake_end_intensity := 1.0
+
+#@export var trauma_start := 0.1
+#@export var trauma_end := 1.0
+
 @export_group("Crash Landing")
 
 @export var crash_final_pitch := 0.0
@@ -52,7 +65,7 @@ signal onPlayerSeatChanged(sit_left: bool, is_sitting: bool)
 signal crash_finished
 
 var crash_time := 0.0
-var rotating_plane := false
+var crashing := false
 var settling := false
 var settle_time := 0.0
 
@@ -66,8 +79,8 @@ func _ready() -> void:
 	setState(startingState)
 
 func _process(delta: float) -> void:
-	if rotating_plane:
-		update_crash_rotation(delta)
+	if crashing:
+		update_crash(delta)
 	
 	if settling:
 		update_settle(delta)
@@ -106,7 +119,7 @@ func setState(newState: State):
 		turbulance.volume_db = -80.0
 		calamity.set_calamity(false)
 		dingle.play()
-		rotating_plane = false
+		crashing = false
 		rotation_degrees = Vector3.ZERO
 		position = original_position
 		pass
@@ -117,7 +130,7 @@ func setState(newState: State):
 		turbulance.volume_db = -20.0
 		calamity.set_calamity(false)
 		dingle.play()
-		rotating_plane = false
+		crashing = false
 		rotation_degrees = Vector3.ZERO
 		position = original_position
 		pass
@@ -128,7 +141,7 @@ func setState(newState: State):
 		turbulance.volume_db = -3.0
 		calamity.set_calamity(true)
 		crash_time = 0.0
-		rotating_plane = enable_crash_rotation
+		crashing = enable_crash_rotation
 		pass
 	elif newState == State.CRASHED:
 		if !calamity.has_calamity:
@@ -154,7 +167,7 @@ func setState(newState: State):
 		open_doors()
 		turbulance.volume_db = -80.0
 		
-		rotating_plane = false
+		crashing = false
 		#settling = false
 		crash_time = 0.0
 		crash_finished.emit()
@@ -166,7 +179,7 @@ func on_crash_impact():
 	setState(State.CRASHED)
 
 
-func update_crash_rotation(delta: float):
+func update_crash(delta: float):
 	crash_time += delta
 	
 	var rt: float = clamp(crash_time / rotation_duration, 0.0, 1.0)
@@ -175,6 +188,7 @@ func update_crash_rotation(delta: float):
 	var pitch_t := rt
 	var roll_t := rt
 	var height_t := ft
+	var intensity_t := ft
 	
 	if pitch_curve:
 		pitch_t = pitch_curve.sample(rt)
@@ -185,12 +199,37 @@ func update_crash_rotation(delta: float):
 	if height_curve:
 		height_t = height_curve.sample(ft)
 	
+	if intensity_curve:
+		intensity_t = intensity_curve.sample(ft)
+	
 	rotation_degrees.x = lerp(0.0, max_pitch, pitch_t)
 	rotation_degrees.z = lerp(0.0, max_roll, roll_t)
 	
 	position.y = original_position.y - (height_t * crash_drop_distance)
 	
-	if ft >= 0.90 && rotating_plane:
+	turbulance.volume_db = lerp(
+		turbulence_start_volume,
+		turbulence_end_volume,
+		intensity_t
+	)
+	
+	player.set_shake_intensity(
+		lerp(
+			shake_start_intensity,
+			shake_end_intensity,
+			intensity_t
+		)
+	)
+	
+	#trauma_causer.set_trauma_amount(
+		#lerp(
+			#trauma_start,
+			#trauma_end,
+			#intensity_t
+		#)
+	#)
+	
+	if ft >= 0.90 && crashing:
 		on_crash_impact()
 
 func update_settle(delta: float):
