@@ -1,14 +1,14 @@
 extends Node
 
 @onready var world_environment: WorldEnvironment = $WorldEnvironment
-@onready var thunderSound: AudioStreamPlayer = $"../Thunder"
+@onready var thunderSound: AudioStreamPlayer = $Thunder
 
 var thunder_active := false
 var thunder_cooldown := 0.0
 
 func _ready() -> void:
 	night()
-
+	
 func thunder():
 	if thunder_active:
 		return

@@ -2,7 +2,7 @@ extends Node3D
 
 @onready var player := $Player
 @onready var campfire := $NavMap/Island1/campfire/fire
-@onready var airplane: Node3D = $NavMap/Island0/Airplane
+#@onready var airplane: Node3D = $NavMap/Island0/Airplane
 @onready var bridge := $NavMap/bridge
 @onready var time_controller: AnimationPlayer = $vibe/lighing/TimeController
 @onready var player_respawn: Node3D = $player_respawn
@@ -71,7 +71,7 @@ func _enter_state(s: GameState) -> void:
 		GameState.DEAD:
 			bridge.set_plank_level(0)
 			campfire.set_intensity(0)
-			airplane.find_child("Calamity").set_calamity(false)
+			#airplane.find_child("Calamity").set_calamity(false)
 
 
 func player_died() -> void:

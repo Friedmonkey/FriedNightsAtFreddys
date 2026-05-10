@@ -1,15 +1,19 @@
 extends Node
 
-const DEBUGGING: bool = false;
+const DEBUGGING: bool = true;
 
 # =========================
 # Node References
 # =========================
-@onready var player := $"../Player"
-@onready var friedy := $"stalking_friedy"
+@export var player: Node3D
+@export var treesFolder: Node3D #$"../NavMap/Island1/friedy_stalk_trees"
+
+@onready var stalking_friedy := $"stalking_friedy"
+@onready var hunting_friedy := $"hunting_friedy"
 @onready var twigSnapSound := $"TwigSnap"
 @onready var ristleSound := $"Ristle"
-@onready var treesFolder := $"../NavMap/Island1/friedy_stalk_trees"
+@onready var laughSound := $FriedyLaugh
+@onready var huntSound := $FriedyHunt
 
 # =========================
 # Enums
@@ -73,6 +77,22 @@ func setup_timers():
 	add_child(follow_timer)
 	follow_timer.timeout.connect(_on_follow_timer_timeout)
 
+func startHuntMode():
+	playSound(huntSound, true)
+	tree_timer.paused = true
+	follow_timer.paused = true
+	stalking_friedy.visible = false
+	hunting_friedy.global_position = stalking_friedy.global_position
+	hunting_friedy.set_active(true)
+	await get_tree().create_timer(10).timeout
+	endHuntMode()
+
+func endHuntMode():
+	hunting_friedy.set_active(false)
+	move_to_new_tree()
+	tree_timer.paused = false
+	follow_timer.paused = false
+	playSound(laughSound, true)
 
 # ============================================================
 # Tree Movement
@@ -84,7 +104,7 @@ func move_to_new_tree():
 		return
 	
 	jump_lock = true
-	friedy.visible = true
+	stalking_friedy.visible = true
 	
 	if current_tree != null:
 		await update_target_position(true)
@@ -107,15 +127,25 @@ func move_to_new_tree():
 
 
 func pick_valid_tree() -> Node3D:
-	var tree = trees.pick_random()
-	if player.global_position.distance_to(tree.global_position) >= 60.0:
+	var tree: Node3D
+	for _i in 3:
 		tree = trees.pick_random()
+		var distance = player.global_position.distance_to(tree.global_position)
+		if distance < 60.0 && distance >= 11:
+			break #this is a good tree, well take it
+		
 	return tree
 
 
 func random_state() -> PeekState:
-	var r = randi() % 3
-	return PeekState.values()[r]
+	var peek: PeekState
+	for _i in 2:		 
+		var r = randi() % 3
+		peek = PeekState.values()[r]
+		if peek != PeekState.UP:
+			break
+	
+	return peek 
 
 
 # ============================================================
@@ -124,11 +154,11 @@ func random_state() -> PeekState:
 func play_state_animation():
 	match current_state:
 		PeekState.LEFT:
-			friedy.play_stalk_anim("stalking_left")
+			stalking_friedy.play_stalk_anim("stalking_left")
 		PeekState.RIGHT:
-			friedy.play_stalk_anim("stalking_right")
+			stalking_friedy.play_stalk_anim("stalking_right")
 		PeekState.UP:
-			friedy.play_stalk_anim("stalking_up")
+			stalking_friedy.play_stalk_anim("stalking_up")
 
 
 # ============================================================
@@ -146,6 +176,12 @@ func move_around_tree():
 	
 	var distance = player.global_position.distance_to(current_tree.global_position)
 	
+	if distance <= 10.0: #friedy should jump behind and start hunt
+		if current_state == PeekState.UP:
+			move_to_new_tree()
+			playSound(huntSound)
+		else:
+			startHuntMode()
 	if should_move_to_new_tree(distance):
 		playSound(ristleSound)
 		move_to_new_tree()
@@ -218,21 +254,18 @@ func calculate_up_offset(jump: bool = false) -> Vector3:
 # ============================================================
 func _process(delta: float) -> void:
 	if is_teleporting:
-		friedy.global_position = target_position
+		stalking_friedy.global_position = target_position
 		is_teleporting = false
 	else:
-		friedy.global_position = friedy.global_position.lerp(target_position, delta * 6.0)
+		stalking_friedy.global_position = stalking_friedy.global_position.lerp(target_position, delta * 6.0)
 	
-	friedy.look_at(player.global_position, Vector3.UP)
+	stalking_friedy.look_at(player.global_position, Vector3.UP)
 
 
 # ============================================================
 # Detection Logic
 # ============================================================
-func should_move_to_new_tree(distance: float) -> bool:
-	if distance <= 10.0:
-		return true
-	
+func should_move_to_new_tree(distance: float) -> bool:	
 	var look_amount = player_looking_at_friedy_amount()
 	
 	if distance <= 50.0 and look_amount > 0:
@@ -245,7 +278,7 @@ func should_move_to_new_tree(distance: float) -> bool:
 
 
 func player_looking_at_friedy_amount() -> int:
-	var to_friedy = (friedy.global_position - player.global_position).normalized()
+	var to_friedy = (stalking_friedy.global_position - player.global_position).normalized()
 	var player_forward = -player.global_transform.basis.z
 	player_forward = player_forward.normalized()
 	
@@ -266,12 +299,12 @@ func player_looking_at_friedy_amount() -> int:
 # ============================================================
 # Sounds
 # ============================================================
-func playSound(sound: AudioStreamPlayer3D):
+func playSound(sound: AudioStreamPlayer3D, force: bool = false):
 	if current_tree == null:
 		return
 	
 	sound.global_position = current_tree.global_position
-	if randi() % 3 == 2:
+	if force || randi() % 3 == 2:
 		sound.play()
 
 

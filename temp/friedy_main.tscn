@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=4 uid="uid://cn5i0d6yjmgb6"]
+[gd_scene format=4 uid="uid://cn5i0d6yjmgb6"]
 
 [ext_resource type="Material" uid="uid://rk2lhsphxm7v" path="res://materials/friedy/friedy_hands.png.material" id="1_nhquw"]
 [ext_resource type="Script" uid="uid://cjo3gonwvm120" path="res://temp/friedy_main.gd" id="1_qt1dr"]
@@ -926,13 +926,13 @@ _data = {
 [sub_resource type="BoxShape3D" id="BoxShape3D_wffbk"]
 size = Vector3(0.5, 2.05, 0.2)
 
-[node name="friedy_main" type="CharacterBody3D"]
+[node name="friedy_main" type="CharacterBody3D" unique_id=434720558]
 script = ExtResource("1_qt1dr")
 
-[node name="root" type="Node3D" parent="."]
+[node name="root" type="Node3D" parent="." unique_id=1120876339]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -1.4570464e-09, 0, 0.033333335)
 
-[node name="Skeleton" type="Skeleton3D" parent="."]
+[node name="Skeleton" type="Skeleton3D" parent="." unique_id=462309572]
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -1.4570464e-09, 0, 0.033333335)
 motion_scale = 1.0332112
@@ -1224,90 +1224,88 @@ bones/40/position = Vector3(-0.00031743795, 0.06722768, 0.00029320424)
 bones/40/rotation = Quaternion(-0.0023097703, 0.9997269, 0.0022347146, 0.023148568)
 bones/40/scale = Vector3(0.9999998, 0.9999999, 0.99999994)
 
-[node name="left_bottom_arm" type="MeshInstance3D" parent="Skeleton"]
+[node name="left_bottom_arm" type="MeshInstance3D" parent="Skeleton" unique_id=245075557]
 mesh = SubResource("ArrayMesh_asl0l")
 skin = SubResource("Skin_ltgsr")
 
-[node name="left_hand" type="MeshInstance3D" parent="Skeleton"]
+[node name="left_hand" type="MeshInstance3D" parent="Skeleton" unique_id=1061408009]
 mesh = SubResource("ArrayMesh_x74a1")
 skin = SubResource("Skin_e1uvv")
 
-[node name="torso" type="MeshInstance3D" parent="Skeleton"]
+[node name="torso" type="MeshInstance3D" parent="Skeleton" unique_id=382461369]
 mesh = SubResource("ArrayMesh_1o306")
 skin = SubResource("Skin_eg0f0")
 
-[node name="foot_right" type="MeshInstance3D" parent="Skeleton"]
+[node name="foot_right" type="MeshInstance3D" parent="Skeleton" unique_id=336887140]
 mesh = SubResource("ArrayMesh_mw10a")
 skin = SubResource("Skin_qkea0")
 
-[node name="leg_left" type="MeshInstance3D" parent="Skeleton"]
+[node name="leg_left" type="MeshInstance3D" parent="Skeleton" unique_id=856775752]
 mesh = SubResource("ArrayMesh_r3an3")
 skin = SubResource("Skin_ckbtm")
 
-[node name="bottom_leg_left" type="MeshInstance3D" parent="Skeleton"]
+[node name="bottom_leg_left" type="MeshInstance3D" parent="Skeleton" unique_id=14195992]
 mesh = SubResource("ArrayMesh_m2u5r")
 skin = SubResource("Skin_oyk1l")
 
-[node name="leg_right" type="MeshInstance3D" parent="Skeleton"]
+[node name="leg_right" type="MeshInstance3D" parent="Skeleton" unique_id=419484788]
 mesh = SubResource("ArrayMesh_khrex")
 skin = SubResource("Skin_cf5xi")
 
-[node name="foot_left" type="MeshInstance3D" parent="Skeleton"]
+[node name="foot_left" type="MeshInstance3D" parent="Skeleton" unique_id=1252591636]
 mesh = SubResource("ArrayMesh_hllx0")
 skin = SubResource("Skin_2mtl5")
 
-[node name="bottom_leg_right" type="MeshInstance3D" parent="Skeleton"]
+[node name="bottom_leg_right" type="MeshInstance3D" parent="Skeleton" unique_id=1797738311]
 mesh = SubResource("ArrayMesh_ii21h")
 skin = SubResource("Skin_mfxit")
 
-[node name="right_hand" type="MeshInstance3D" parent="Skeleton"]
+[node name="right_hand" type="MeshInstance3D" parent="Skeleton" unique_id=303849746]
 mesh = SubResource("ArrayMesh_ioxlo")
 skin = SubResource("Skin_s08ln")
 
-[node name="right_bottom_arm" type="MeshInstance3D" parent="Skeleton"]
+[node name="right_bottom_arm" type="MeshInstance3D" parent="Skeleton" unique_id=19189001]
 mesh = SubResource("ArrayMesh_xmnan")
 skin = SubResource("Skin_tg8kh")
 
-[node name="head" type="MeshInstance3D" parent="Skeleton"]
+[node name="head" type="MeshInstance3D" parent="Skeleton" unique_id=1647291954]
 mesh = SubResource("ArrayMesh_cdogv")
 skin = SubResource("Skin_5e2gi")
 
-[node name="mouth" type="MeshInstance3D" parent="Skeleton"]
+[node name="mouth" type="MeshInstance3D" parent="Skeleton" unique_id=438422575]
 mesh = SubResource("ArrayMesh_w0nmj")
 skin = SubResource("Skin_etq3y")
 
-[node name="ear_left" type="MeshInstance3D" parent="Skeleton"]
+[node name="ear_left" type="MeshInstance3D" parent="Skeleton" unique_id=379483485]
 mesh = SubResource("ArrayMesh_q5uye")
 skin = SubResource("Skin_vyk2l")
 
-[node name="ear_right" type="MeshInstance3D" parent="Skeleton"]
+[node name="ear_right" type="MeshInstance3D" parent="Skeleton" unique_id=1735174164]
 mesh = SubResource("ArrayMesh_yl8xc")
 skin = SubResource("Skin_li1rq")
 
-[node name="hat_brim" type="MeshInstance3D" parent="Skeleton"]
+[node name="hat_brim" type="MeshInstance3D" parent="Skeleton" unique_id=1834250119]
 mesh = SubResource("ArrayMesh_qx8wk")
 skin = SubResource("Skin_4v1qk")
 
-[node name="hat_top" type="MeshInstance3D" parent="Skeleton"]
+[node name="hat_top" type="MeshInstance3D" parent="Skeleton" unique_id=784798911]
 mesh = SubResource("ArrayMesh_l0c3g")
 skin = SubResource("Skin_x5l6n")
 
-[node name="right_top_arm" type="MeshInstance3D" parent="Skeleton"]
+[node name="right_top_arm" type="MeshInstance3D" parent="Skeleton" unique_id=1731464685]
 mesh = SubResource("ArrayMesh_nbkva")
 skin = SubResource("Skin_6udh7")
 
-[node name="left_top_arm" type="MeshInstance3D" parent="Skeleton"]
+[node name="left_top_arm" type="MeshInstance3D" parent="Skeleton" unique_id=1579938331]
 mesh = SubResource("ArrayMesh_a0de8")
 skin = SubResource("Skin_4e8ya")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1767031390]
 reset_on_save = false
-libraries = {
-&"": SubResource("AnimationLibrary_mbot2")
-}
-autoplay = "running"
+libraries/ = SubResource("AnimationLibrary_mbot2")
+autoplay = &"running"
 
-[node name="Chase" type="AudioStreamPlayer3D" parent="."]
+[node name="Chase" type="AudioStreamPlayer3D" parent="." unique_id=1445199367]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 stream = ExtResource("3_mbot2")
 attenuation_model = 3
@@ -1317,7 +1315,7 @@ autoplay = true
 max_distance = 10.0
 bus = &"chase"
 
-[node name="Sceam" type="AudioStreamPlayer3D" parent="."]
+[node name="Sceam" type="AudioStreamPlayer3D" parent="." unique_id=1804197904]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 stream = ExtResource("4_txjgx")
 attenuation_model = 3
@@ -1328,9 +1326,9 @@ max_distance = 8.0
 panning_strength = 0.27
 bus = &"Scream"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=526264085]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 2.9140923e-09, 1.025, -0.016666664)
 shape = SubResource("BoxShape3D_wffbk")
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1088106148]
 path_height_offset = 0.25
