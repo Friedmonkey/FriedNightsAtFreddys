@@ -39,7 +39,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="FriedNightsAtFreddys"
-run/main_scene="uid://dsampoje3pduw"
+run/main_scene="uid://dlrouyluo80da"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 
 [audio]
